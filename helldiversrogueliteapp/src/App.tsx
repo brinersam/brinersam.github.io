@@ -1,19 +1,35 @@
-// import { useState } from "react";
-// import reactLogo from "./assets/react.svg";
-// import viteLogo from "/vite.svg";
+import { useState } from "react";
 import "./App.css";
-import ItemIcon from "./components/ItemData/ItemIcon";
 import { manifest } from "./scripts/data/item_manifests";
+import ItemIcon from "./components/ItemData/ItemIcon";
 
 function App() {
-  // const [count, setCount] = useState(0);
+  const [itemIdx, setItemIdx] = useState<number>(0);
+
+  const totalItems = manifest.length;
+
+  const cssSize = 200;
+
+  const setRngItem = () => {
+    setItemIdx(Math.floor(Math.random() * totalItems));
+  };
 
   return (
     <>
-      <button className="rounded-full bg-sky-500 px-5 py-2 text-sm leading-5 font-semibold text-white hover:bg-sky-700">
-        Save changes
+      <button
+        onClick={setRngItem}
+        className="rounded-full bg-sky-500 px-5 py-2 text-sm leading-5 font-semibold text-white hover:bg-sky-700"
+      >
+        Randomize the item
       </button>
-      <ItemIcon data={manifest[0]}></ItemIcon>
+      {
+        <div
+          style={{ width: cssSize, height: cssSize }}
+          className={`overflow-hidden`}
+        >
+          <ItemIcon data={manifest[itemIdx]}></ItemIcon>
+        </div>
+      }
     </>
   );
 }

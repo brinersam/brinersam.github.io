@@ -1,0 +1,5 @@
+ai vision to import config from divers screenshots or whatever
+tier list so u can tier weapons urself which will affect rarity or whatever
+resources that u "gather" through gameplay to spend on guns / rerolls / idk
+end of mission screen wehre u input ur stars / whatever to affect something on app
+download/parse data from wiki (? is it rude)
