@@ -443,4 +443,15 @@ export const weapons_base: Array<weaponData> = [
     dmgType: dmgTypeFlags.Boolet,
     weaponSlot: "Grenade",
   },
+  {
+    id: "2fc4607f-6b5a-4472-a817-0961c43d20cf",
+    name: "test",
+    icon_url: "./punisherPlasma.png",
+    tags: itemTagFlags.None,
+    quality: "Medium",
+    inventoryOrder: 0,
+
+    dmgType: dmgTypeFlags.Boolet,
+    weaponSlot: "Primary",
+  },
 ];
