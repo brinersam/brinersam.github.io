@@ -7,4 +7,3 @@ export interface weaponData extends itemData, hasTypeOfDamage {
 
 export const weaponSlotEnum = ['Primary', 'Secondary', 'Grenade', 'Support'] as const;
 export type weaponSlotEnum = typeof weaponSlotEnum[number];
-
