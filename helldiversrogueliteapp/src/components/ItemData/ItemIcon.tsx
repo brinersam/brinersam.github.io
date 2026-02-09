@@ -1,6 +1,6 @@
 import type { itemData } from "../../scripts/defs/models/itemData";
 
-export default function ItemIcon({ data }: { data: itemData }) {
+export default function ItemIcon({ data }: { data: itemData | null }) {
   return (
     <>
       <img
@@ -12,7 +12,7 @@ export default function ItemIcon({ data }: { data: itemData }) {
           height: "100%",
           objectFit: "fill",
         }}
-        src={data.icon_url}
+        src={data?.icon_url}
       ></img>
     </>
   );

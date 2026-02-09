@@ -1,35 +1,67 @@
-import { useState } from "react";
 import "./App.css";
-import { manifest } from "./scripts/data/item_manifests";
+import { weapons } from "./scripts/data/item_manifests";
 import ItemIcon from "./components/ItemData/ItemIcon";
+import type { weaponData } from "./scripts/defs/models/weaponData";
+import { useState } from "react";
 
 function App() {
-  const [itemIdx, setItemIdx] = useState<number>(0);
+  const manifestPrimaries: weaponData[] = weapons.filter(
+    (x) => x.weaponSlot == "Primary"
+  );
 
-  const totalItems = manifest.length;
+  const cssWeaponSize = { width: 200, height: 100 };
 
-  const cssSize = 200;
+  const [primarySelection, setPrimarySelection] = useState<weaponData[]>([]);
 
-  const setRngItem = () => {
-    setItemIdx(Math.floor(Math.random() * totalItems));
+  const generateUniqueIdx = (n: number, source: unknown[]): number[] => {
+    const totalItems = source.length;
+    let resultIdx: number[] = [];
+
+    if (source.length < n) {
+      resultIdx = Array.from({ length: n }, (_, k) =>
+        Math.min(k, source.length - 1)
+      );
+      return resultIdx;
+    }
+
+    while (resultIdx.length < n) {
+      let randomIdx: number = -1;
+      while (randomIdx == -1 || resultIdx.some((x) => x == randomIdx)) {
+        randomIdx = Math.floor(Math.random() * totalItems);
+      }
+      resultIdx.push(randomIdx);
+      randomIdx = -1;
+    }
+
+    return resultIdx;
+  };
+
+  const rollPrimaries = () => {
+    const newPrimaries: weaponData[] = [];
+    generateUniqueIdx(3, manifestPrimaries).forEach(
+      (v, i) => (newPrimaries[i] = manifestPrimaries[v])
+    );
+
+    setPrimarySelection(newPrimaries);
   };
 
   return (
     <>
       <button
-        onClick={setRngItem}
+        onClick={rollPrimaries}
         className="rounded-full bg-sky-500 px-5 py-2 text-sm leading-5 font-semibold text-white hover:bg-sky-700"
       >
-        Randomize the item
+        Get random primaries
       </button>
-      {
-        <div
-          style={{ width: cssSize, height: cssSize }}
-          className={`overflow-hidden`}
-        >
-          <ItemIcon data={manifest[itemIdx]}></ItemIcon>
-        </div>
-      }
+      <div style={cssWeaponSize} className={`overflow-hidden`}>
+        <ItemIcon data={primarySelection[0] ?? null}></ItemIcon>
+      </div>
+      <div style={cssWeaponSize} className={`overflow-hidden`}>
+        <ItemIcon data={primarySelection[1] ?? null}></ItemIcon>
+      </div>
+      <div style={cssWeaponSize} className={`overflow-hidden`}>
+        <ItemIcon data={primarySelection[2] ?? null}></ItemIcon>
+      </div>
     </>
   );
 }
