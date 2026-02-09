@@ -44,26 +44,21 @@ function App() {
   };
 
   const generateUniqueIdx = (n: number, source: unknown[]): number[] => {
-    const totalItems = source.length;
-    let resultIdx: number[] = [];
+    const resultsIdxSet = new Set<number>();
+    const itemCount = source.length;
 
-    if (source.length < n) {
-      resultIdx = Array.from({ length: n }, (_, k) =>
-        Math.min(k, source.length - 1)
-      );
-      return resultIdx;
-    }
+    while (resultsIdxSet.size < n) {
+      let randomIdx = Math.floor(Math.random() * itemCount); // 0 - itemcount-1
 
-    while (resultIdx.length < n) {
-      let randomIdx: number = -1;
-      while (randomIdx == -1 || resultIdx.some((x) => x == randomIdx)) {
-        randomIdx = Math.floor(Math.random() * totalItems);
+      const stepDirection = Math.random() > 0.5 ? 1 : -1;
+      while (resultsIdxSet.has(randomIdx)) {
+        randomIdx = randomIdx + stepDirection;
+        randomIdx = randomIdx < 0 ? itemCount - 1 : randomIdx % itemCount;
       }
-      resultIdx.push(randomIdx);
-      randomIdx = -1;
+      resultsIdxSet.add(randomIdx);
     }
 
-    return resultIdx;
+    return [...resultsIdxSet];
   };
 
   const rollItems = <T,>(n: number, source: T[]): T[] => {
