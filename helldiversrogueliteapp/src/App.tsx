@@ -4,6 +4,8 @@ import ItemIcon from "./components/ItemData/ItemIcon";
 import type { weaponData } from "./scripts/defs/models/weaponData";
 import { useState } from "react";
 import type { stratagemData } from "./scripts/defs/models/stratagemData";
+import type { itemData } from "./scripts/defs/models/itemData";
+import type { UUID } from "./scripts/defs/helpers/appUUID";
 
 function App() {
   const manifestPrimaries: weaponData[] = weapons.filter(
@@ -34,6 +36,10 @@ function App() {
   const [gem3, setGem3] = useState<stratagemData[]>([]);
   const [gem4, setGem4] = useState<stratagemData[]>([]);
 
+  const [gemCollisions, setGemCollisions] = useState<Set<UUID>>(
+    new Set<UUID>()
+  );
+
   const resetAll = () => {
     setPrimarySelection([]);
     setSecondarySelection([]);
@@ -41,19 +47,37 @@ function App() {
     setGem2([]);
     setGem3([]);
     setGem4([]);
+    setGemCollisions(new Set<UUID>());
   };
 
-  const generateUniqueIdx = (n: number, source: unknown[]): number[] => {
+  const generateListOfUniqueIdx = (
+    n: number,
+    source: itemData[],
+    excludeIds?: Set<UUID> | null
+  ): number[] => {
     const resultsIdxSet = new Set<number>();
     const itemCount = source.length;
 
     while (resultsIdxSet.size < n) {
       let randomIdx = Math.floor(Math.random() * itemCount); // 0 - itemcount-1
+      let idxItemId: UUID = source[randomIdx].id;
 
       const stepDirection = Math.random() > 0.5 ? 1 : -1;
-      while (resultsIdxSet.has(randomIdx)) {
+      const startingIdx = randomIdx;
+
+      const idIsNotUnique = (id: UUID) =>
+        excludeIds == null ? false : excludeIds.has(id);
+
+      while (resultsIdxSet.has(randomIdx) || idIsNotUnique(idxItemId)) {
         randomIdx = randomIdx + stepDirection;
         randomIdx = randomIdx < 0 ? itemCount - 1 : randomIdx % itemCount;
+
+        idxItemId = source[randomIdx].id;
+
+        if (randomIdx == startingIdx) {
+          console.log("DEBUG: infinite loop prevented");
+          break;
+        }
       }
       resultsIdxSet.add(randomIdx);
     }
@@ -61,12 +85,26 @@ function App() {
     return [...resultsIdxSet];
   };
 
-  const rollItems = <T,>(n: number, source: T[]): T[] => {
+  const rollItems = <T extends itemData>(
+    n: number,
+    source: T[],
+    excludeIds?: Set<UUID>
+  ): T[] => {
     const chosenItems: T[] = [];
-    generateUniqueIdx(n, source).forEach(
+    generateListOfUniqueIdx(n, source, excludeIds).forEach(
       (v, i) => (chosenItems[i] = source[v])
     );
     return chosenItems;
+  };
+
+  const recordUniqueIdsDecorator = <T extends itemData>(
+    source: T[],
+    collisionIdSet: Set<UUID>
+  ): T[] => {
+    const updatedSet = new Set<UUID>(collisionIdSet);
+    source.forEach((x) => updatedSet.add(x.id));
+    setGemCollisions(updatedSet);
+    return source;
   };
 
   return (
@@ -118,15 +156,36 @@ function App() {
         <div>
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
             <button
-              onClick={() => setGem1(rollItems(3, manifestGemsRed))}
+              onClick={() =>
+                setGem1(
+                  recordUniqueIdsDecorator(
+                    rollItems(3, manifestGemsRed, gemCollisions),
+                    gemCollisions
+                  )
+                )
+              }
               className="rounded-full bg-red-400 px-3 py-5 text-sm leading-5 font-semibold text-white hover:bg-red-700"
             />
             <button
-              onClick={() => setGem1(rollItems(3, manifestGemsBlue))}
+              onClick={() =>
+                setGem1(
+                  recordUniqueIdsDecorator(
+                    rollItems(3, manifestGemsBlue, gemCollisions),
+                    gemCollisions
+                  )
+                )
+              }
               className="rounded-full bg-sky-500 px-3 py-5 text-sm leading-5 font-semibold text-white hover:bg-sky-700"
             />
             <button
-              onClick={() => setGem1(rollItems(3, manifestGemsGreen))}
+              onClick={() =>
+                setGem1(
+                  recordUniqueIdsDecorator(
+                    rollItems(3, manifestGemsGreen, gemCollisions),
+                    gemCollisions
+                  )
+                )
+              }
               className="rounded-full bg-green-500 px-3 py-5 text-sm leading-5 font-semibold text-white hover:bg-green-700"
             />
           </div>
@@ -144,15 +203,36 @@ function App() {
         <div>
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
             <button
-              onClick={() => setGem2(rollItems(3, manifestGemsRed))}
+              onClick={() =>
+                setGem2(
+                  recordUniqueIdsDecorator(
+                    rollItems(3, manifestGemsRed, gemCollisions),
+                    gemCollisions
+                  )
+                )
+              }
               className="rounded-full bg-red-400 px-3 py-5 text-sm leading-5 font-semibold text-white hover:bg-red-700"
             />
             <button
-              onClick={() => setGem2(rollItems(3, manifestGemsBlue))}
+              onClick={() =>
+                setGem2(
+                  recordUniqueIdsDecorator(
+                    rollItems(3, manifestGemsBlue, gemCollisions),
+                    gemCollisions
+                  )
+                )
+              }
               className="rounded-full bg-sky-500 px-3 py-5 text-sm leading-5 font-semibold text-white hover:bg-sky-700"
             />
             <button
-              onClick={() => setGem2(rollItems(3, manifestGemsGreen))}
+              onClick={() =>
+                setGem2(
+                  recordUniqueIdsDecorator(
+                    rollItems(3, manifestGemsGreen, gemCollisions),
+                    gemCollisions
+                  )
+                )
+              }
               className="rounded-full bg-green-500 px-3 py-5 text-sm leading-5 font-semibold text-white hover:bg-green-700"
             />
           </div>
@@ -170,15 +250,36 @@ function App() {
         <div>
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
             <button
-              onClick={() => setGem3(rollItems(3, manifestGemsRed))}
+              onClick={() =>
+                setGem3(
+                  recordUniqueIdsDecorator(
+                    rollItems(3, manifestGemsRed, gemCollisions),
+                    gemCollisions
+                  )
+                )
+              }
               className="rounded-full bg-red-400 px-3 py-5 text-sm leading-5 font-semibold text-white hover:bg-red-700"
             />
             <button
-              onClick={() => setGem3(rollItems(3, manifestGemsBlue))}
+              onClick={() =>
+                setGem3(
+                  recordUniqueIdsDecorator(
+                    rollItems(3, manifestGemsBlue, gemCollisions),
+                    gemCollisions
+                  )
+                )
+              }
               className="rounded-full bg-sky-500 px-3 py-5 text-sm leading-5 font-semibold text-white hover:bg-sky-700"
             />
             <button
-              onClick={() => setGem3(rollItems(3, manifestGemsGreen))}
+              onClick={() =>
+                setGem3(
+                  recordUniqueIdsDecorator(
+                    rollItems(3, manifestGemsGreen, gemCollisions),
+                    gemCollisions
+                  )
+                )
+              }
               className="rounded-full bg-green-500 px-3 py-5 text-sm leading-5 font-semibold text-white hover:bg-green-700"
             />
           </div>
@@ -196,15 +297,36 @@ function App() {
         <div>
           <div style={{ display: "flex", justifyContent: "space-evenly" }}>
             <button
-              onClick={() => setGem4(rollItems(3, manifestGemsRed))}
+              onClick={() =>
+                setGem4(
+                  recordUniqueIdsDecorator(
+                    rollItems(3, manifestGemsRed, gemCollisions),
+                    gemCollisions
+                  )
+                )
+              }
               className="rounded-full bg-red-400 px-3 py-5 text-sm leading-5 font-semibold text-white hover:bg-red-700"
             />
             <button
-              onClick={() => setGem4(rollItems(3, manifestGemsBlue))}
+              onClick={() =>
+                setGem4(
+                  recordUniqueIdsDecorator(
+                    rollItems(3, manifestGemsBlue, gemCollisions),
+                    gemCollisions
+                  )
+                )
+              }
               className="rounded-full bg-sky-500 px-3 py-5 text-sm leading-5 font-semibold text-white hover:bg-sky-700"
             />
             <button
-              onClick={() => setGem4(rollItems(3, manifestGemsGreen))}
+              onClick={() =>
+                setGem4(
+                  recordUniqueIdsDecorator(
+                    rollItems(3, manifestGemsGreen, gemCollisions),
+                    gemCollisions
+                  )
+                )
+              }
               className="rounded-full bg-green-500 px-3 py-5 text-sm leading-5 font-semibold text-white hover:bg-green-700"
             />
           </div>
