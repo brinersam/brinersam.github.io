@@ -1,9 +1,9 @@
-interface armorBonus
-{
-    description : string,
-    icon_url : string,
-    armorBonusTags : armorBonusFlags
-}
+// interface armorBonus TODO
+// {
+//     description : string,
+//     icon_url : string,
+//     armorBonusTags : armorBonusFlags
+// }
 
 export const armorBonusFlags = {
     None : 0,
