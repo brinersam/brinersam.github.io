@@ -1,27 +1,54 @@
 import "./App.css";
-import { stratagems, weapons } from "./scripts/data/item_manifests";
+import { armors, stratagems, weapons } from "./scripts/data/item_manifests";
 import ItemIcon from "./components/ItemData/ItemIcon";
 import type { weaponData } from "./scripts/defs/models/weaponData";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import type { stratagemData } from "./scripts/defs/models/stratagemData";
 import type { itemData } from "./scripts/defs/models/itemData";
 import type { UUID } from "./scripts/defs/helpers/appUUID";
+import { armorBonusFlags } from "./scripts/defs/models/armorBonus";
 
 function App() {
-  const manifestPrimaries: weaponData[] = weapons.filter(
-    (x) => x.weaponSlot == "Primary"
+  const manifestPrimaries = useMemo<weaponData[]>(
+    () => weapons.filter((x) => x.weaponSlot == "Primary"),
+    []
   );
-  const manifestSecondaries: weaponData[] = weapons.filter(
-    (x) => x.weaponSlot == "Secondary"
+
+  const manifestSecondaries = useMemo<weaponData[]>(
+    () => weapons.filter((x) => x.weaponSlot == "Secondary"),
+    []
   );
-  const manifestGemsRed: stratagemData[] = stratagems.filter(
-    (x) => x.stratagemType == "Red"
+
+  const manifestGemsRed = useMemo<stratagemData[]>(
+    () => stratagems.filter((x) => x.stratagemType == "Red"),
+    []
   );
-  const manifestGemsBlue: stratagemData[] = stratagems.filter(
-    (x) => x.stratagemType == "Blue"
+
+  const manifestGemsBlue = useMemo<stratagemData[]>(
+    () => stratagems.filter((x) => x.stratagemType == "Blue"),
+    []
   );
-  const manifestGemsGreen: stratagemData[] = stratagems.filter(
-    (x) => x.stratagemType == "Green"
+
+  const manifestGemsGreen = useMemo<stratagemData[]>(
+    () => stratagems.filter((x) => x.stratagemType == "Green"),
+    []
+  );
+
+  console.log(
+    armors
+      .filter((x) => {
+        const target =
+          armorBonusFlags.Grenades_More | armorBonusFlags.ResistanceChest;
+
+        const bothOnly = (x.armorBonus.armorBonusTags & target) === target; // if empty result or less than needed, then do other one
+        const bothAndIndividually =
+          (x.armorBonus.armorBonusTags & target) !== 0n;
+
+        return bothAndIndividually;
+      })
+      // .filter((x) => x.armorWeight == "Heavy")
+      .map((x) => `${x.name} : ${x.armorBonus.description} ::: \n`)
+      .toString()
   );
 
   const cssWeaponSize = { width: 200, height: 110 };

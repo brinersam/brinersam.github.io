@@ -7,51 +7,51 @@
 
 export const armorBonusFlags = {
     None : 0,
-    DmgToStam : 1 << 0,
-    HighArmor : 1 << 0,
-    Wildwest : 1 << 0,
-    ScoutPing : 1 << 0,
-    Democracy : 1 << 0,
+    DmgToStam : 1n << 0n,
+    HighArmor : 1n << 1n,
+    Wildwest : 1n << 2n,
+    ScoutPing : 1n << 3n,
+    Democracy : 1n << 4n,
 
-    ReducedNoise : 1 << 0,
-    ReducedDetection : 1 << 0,
+    ReducedNoise : 1n << 5n,
+    ReducedDetection : 1n << 6n,
 
-    NoRagdolling : 1 << 0,
-    NoBleeding : 1 << 0,
-    NoBrokenLegs : 1 << 0,
-    NoFlinch : 1 << 0,
-    NoBrokenLimbs : 1 << 0,
+    NoRagdolling : 1n << 7n,
+    NoBleeding : 1n << 8n,
+    NoBrokenLegs : 1n << 9n,
+    NoFlinch : 1n << 10n,
+    NoBrokenLimbs : 1n << 11n,
 
-    ResistanceAcid : 1 << 0,
-    ResistanceExplosive : 1 << 0,
-    ResistanceElectric : 1 << 0,
-    ResistanceFire : 1 << 0,
-    ResistanceGas : 1 << 0,
+    ResistanceAcid : 1n << 12n,
+    ResistanceExplosive : 1n << 13n,
+    ResistanceElectric : 1n << 14n,
+    ResistanceFire : 1n << 15n,
+    ResistanceGas : 1n << 16n,
 
-    ResistanceChest : 1 << 0,
-    ResistanceLimbs : 1 << 0,
+    ResistanceChest : 1n << 17n,
+    ResistanceLimbs : 1n << 18n,
 
-    StrongerThrow: 1 << 0,
-    StrongerMelee : 1 << 0,
-    StrongerPOIRange : 1 << 0,
+    StrongerThrow: 1n << 19n,
+    StrongerMelee : 1n << 20n,
+    StrongerPOIRange : 1n << 21n,
 
-    Secondary_FasterReload : 1 << 0,
-    Secondary_ReducedRecoil : 1 << 0,
-    Secondary_FasterHolster : 1 << 0,
+    Secondary_FasterReload : 1n << 22n,
+    Secondary_ReducedRecoil : 1n << 23n,
+    Secondary_FasterHolster : 1n << 24n,
 
-    Primary_FasterReload  : 1 << 0,
+    Primary_FasterReload  : 1n << 25n,
 
-    Weapons_MoreAmmo  : 1 << 0,
-    Weapons_StrongerHandling : 1 << 0,
-    Weapons_ReducedRecoil_CrouchProne : 1 << 0,
+    Weapons_MoreAmmo  : 1n << 26n,
+    Weapons_StrongerHandling : 1n << 27n,
+    Weapons_ReducedRecoil_CrouchProne : 1n << 28n,
 
-    Death_Ressurection : 1 << 0,
-    Death_Explode : 1 << 0,
+    Death_Ressurection : 1n << 29n,
+    Death_Explode : 1n << 30n,
 
-    Grenades_More : 1 << 0,
+    Grenades_More : 1n << 31n,
 
-    Stim_Longer : 1 << 0,
-    Stim_More : 1 << 0,
+    Stim_Longer : 1n << 32n,
+    Stim_More : 1n << 33n,
 
 
 } as const;
