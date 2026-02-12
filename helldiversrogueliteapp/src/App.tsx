@@ -1,12 +1,13 @@
 import "./App.css";
 import { armors, stratagems, weapons } from "./scripts/data/item_manifests";
-import ItemIcon from "./components/ItemData/ItemIcon";
 import type { weaponData } from "./scripts/defs/models/weaponData";
 import { useMemo, useState } from "react";
 import type { stratagemData } from "./scripts/defs/models/stratagemData";
-import type { itemData } from "./scripts/defs/models/itemData";
 import type { UUID } from "./scripts/defs/helpers/appUUID";
 import { armorBonusFlags } from "./scripts/defs/models/armorBonus";
+import ItemsContainer from "./components/ItemContainer";
+import Helper from "./scripts/functional/Helper";
+import GemButtonRow from "./components/GemButtonRow";
 
 function App() {
   const manifestPrimaries = useMemo<weaponData[]>(
@@ -52,7 +53,7 @@ function App() {
   );
 
   const cssWeaponSize = { width: 200, height: 110 };
-  const cssGenSize = { width: 100, height: 100 };
+  const cssGemize = { width: 100, height: 100 };
 
   const [primarySelection, setPrimarySelection] = useState<weaponData[]>([]);
   const [secondarySelection, setSecondarySelection] = useState<weaponData[]>(
@@ -77,63 +78,6 @@ function App() {
     setGemCollisions(new Set<UUID>());
   };
 
-  const generateListOfUniqueIdx = (
-    n: number,
-    source: itemData[],
-    excludeIds?: Set<UUID> | null
-  ): number[] => {
-    const resultsIdxSet = new Set<number>();
-    const itemCount = source.length;
-
-    while (resultsIdxSet.size < n) {
-      let randomIdx = Math.floor(Math.random() * itemCount); // 0 - itemcount-1
-      let idxItemId: UUID = source[randomIdx].id;
-
-      const stepDirection = Math.random() > 0.5 ? 1 : -1;
-      const startingIdx = randomIdx;
-
-      const idIsNotUnique = (id: UUID) =>
-        excludeIds == null ? false : excludeIds.has(id);
-
-      while (resultsIdxSet.has(randomIdx) || idIsNotUnique(idxItemId)) {
-        randomIdx = randomIdx + stepDirection;
-        randomIdx = randomIdx < 0 ? itemCount - 1 : randomIdx % itemCount;
-
-        idxItemId = source[randomIdx].id;
-
-        if (randomIdx == startingIdx) {
-          console.log("DEBUG: infinite loop prevented");
-          break;
-        }
-      }
-      resultsIdxSet.add(randomIdx);
-    }
-
-    return [...resultsIdxSet];
-  };
-
-  const rollItems = <T extends itemData>(
-    n: number,
-    source: T[],
-    excludeIds?: Set<UUID>
-  ): T[] => {
-    const chosenItems: T[] = [];
-    generateListOfUniqueIdx(n, source, excludeIds).forEach(
-      (v, i) => (chosenItems[i] = source[v])
-    );
-    return chosenItems;
-  };
-
-  const recordUniqueIdsDecorator = <T extends itemData>(
-    source: T[],
-    collisionIdSet: Set<UUID>
-  ): T[] => {
-    const updatedSet = new Set<UUID>(collisionIdSet);
-    source.forEach((x) => updatedSet.add(x.id));
-    setGemCollisions(updatedSet);
-    return source;
-  };
-
   return (
     <>
       <div>
@@ -141,232 +85,83 @@ function App() {
           onClick={() => resetAll()}
           className="rounded-full bg-red-400 px-40 py-2 text-sm leading-5 font-semibold text-white hover:bg-red-700"
         >
-          {" "}
-          RESET{" "}
+          RESET
         </button>
       </div>
       {/* weapons bar*/}
       <div style={{ display: "flex" }}>
         <div>
           <button
-            onClick={() => setPrimarySelection(rollItems(2, manifestPrimaries))}
+            onClick={() =>
+              setPrimarySelection(Helper.rollItems(2, manifestPrimaries))
+            }
             className="rounded-full bg-sky-500 px-5 py-2 text-sm leading-5 font-semibold text-white hover:bg-sky-700"
           >
             Get random primaries
           </button>
-          <div style={cssWeaponSize} className={`overflow-hidden`}>
-            <ItemIcon data={primarySelection[0]}></ItemIcon>
-          </div>
-          <div style={cssWeaponSize} className={`overflow-hidden`}>
-            <ItemIcon data={primarySelection[1]}></ItemIcon>
-          </div>
+          <ItemsContainer
+            data={primarySelection}
+            size={cssWeaponSize}
+            itemCount={2}
+          />
         </div>
         <div>
           <button
             onClick={() =>
-              setSecondarySelection(rollItems(2, manifestSecondaries))
+              setSecondarySelection(Helper.rollItems(2, manifestSecondaries))
             }
             className="rounded-full bg-sky-500 px-5 py-2 text-sm leading-5 font-semibold text-white hover:bg-sky-700"
           >
             Get random secondaries
           </button>
-          <div style={cssWeaponSize} className={`overflow-hidden`}>
-            <ItemIcon data={secondarySelection[0]}></ItemIcon>
-          </div>
-          <div style={cssWeaponSize} className={`overflow-hidden`}>
-            <ItemIcon data={secondarySelection[1]}></ItemIcon>
-          </div>
+          <ItemsContainer
+            data={secondarySelection}
+            size={cssWeaponSize}
+            itemCount={2}
+          />
         </div>
       </div>
       {/* gems bar*/}
       <div style={{ display: "flex" }}>
         <div>
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <button
-              onClick={() =>
-                setGem1(
-                  recordUniqueIdsDecorator(
-                    rollItems(3, manifestGemsRed, gemCollisions),
-                    gemCollisions
-                  )
-                )
-              }
-              className="rounded-full bg-red-400 px-3 py-5 text-sm leading-5 font-semibold text-white hover:bg-red-700"
-            />
-            <button
-              onClick={() =>
-                setGem1(
-                  recordUniqueIdsDecorator(
-                    rollItems(3, manifestGemsBlue, gemCollisions),
-                    gemCollisions
-                  )
-                )
-              }
-              className="rounded-full bg-sky-500 px-3 py-5 text-sm leading-5 font-semibold text-white hover:bg-sky-700"
-            />
-            <button
-              onClick={() =>
-                setGem1(
-                  recordUniqueIdsDecorator(
-                    rollItems(3, manifestGemsGreen, gemCollisions),
-                    gemCollisions
-                  )
-                )
-              }
-              className="rounded-full bg-green-500 px-3 py-5 text-sm leading-5 font-semibold text-white hover:bg-green-700"
-            />
-          </div>
-
-          <div style={cssGenSize} className={`overflow-hidden`}>
-            <ItemIcon data={gem1[0]}></ItemIcon>
-          </div>
-          <div style={cssGenSize} className={`overflow-hidden`}>
-            <ItemIcon data={gem1[1]}></ItemIcon>
-          </div>
-          <div style={cssGenSize} className={`overflow-hidden`}>
-            <ItemIcon data={gem1[2]}></ItemIcon>
-          </div>
+          <GemButtonRow
+            gemSetter={setGem1}
+            collisionSource={gemCollisions}
+            collisionSetter={setGemCollisions}
+            itemAmount={3}
+            dataSources={[manifestGemsRed, manifestGemsBlue, manifestGemsGreen]}
+          />
+          <ItemsContainer data={gem1} size={cssGemize} itemCount={3} />
         </div>
         <div>
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <button
-              onClick={() =>
-                setGem2(
-                  recordUniqueIdsDecorator(
-                    rollItems(3, manifestGemsRed, gemCollisions),
-                    gemCollisions
-                  )
-                )
-              }
-              className="rounded-full bg-red-400 px-3 py-5 text-sm leading-5 font-semibold text-white hover:bg-red-700"
-            />
-            <button
-              onClick={() =>
-                setGem2(
-                  recordUniqueIdsDecorator(
-                    rollItems(3, manifestGemsBlue, gemCollisions),
-                    gemCollisions
-                  )
-                )
-              }
-              className="rounded-full bg-sky-500 px-3 py-5 text-sm leading-5 font-semibold text-white hover:bg-sky-700"
-            />
-            <button
-              onClick={() =>
-                setGem2(
-                  recordUniqueIdsDecorator(
-                    rollItems(3, manifestGemsGreen, gemCollisions),
-                    gemCollisions
-                  )
-                )
-              }
-              className="rounded-full bg-green-500 px-3 py-5 text-sm leading-5 font-semibold text-white hover:bg-green-700"
-            />
-          </div>
-
-          <div style={cssGenSize} className={`overflow-hidden`}>
-            <ItemIcon data={gem2[0]}></ItemIcon>
-          </div>
-          <div style={cssGenSize} className={`overflow-hidden`}>
-            <ItemIcon data={gem2[1]}></ItemIcon>
-          </div>
-          <div style={cssGenSize} className={`overflow-hidden`}>
-            <ItemIcon data={gem2[2]}></ItemIcon>
-          </div>
+          <GemButtonRow
+            gemSetter={setGem2}
+            collisionSource={gemCollisions}
+            collisionSetter={setGemCollisions}
+            itemAmount={3}
+            dataSources={[manifestGemsRed, manifestGemsBlue, manifestGemsGreen]}
+          />
+          <ItemsContainer data={gem2} size={cssGemize} itemCount={3} />
         </div>
         <div>
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <button
-              onClick={() =>
-                setGem3(
-                  recordUniqueIdsDecorator(
-                    rollItems(3, manifestGemsRed, gemCollisions),
-                    gemCollisions
-                  )
-                )
-              }
-              className="rounded-full bg-red-400 px-3 py-5 text-sm leading-5 font-semibold text-white hover:bg-red-700"
-            />
-            <button
-              onClick={() =>
-                setGem3(
-                  recordUniqueIdsDecorator(
-                    rollItems(3, manifestGemsBlue, gemCollisions),
-                    gemCollisions
-                  )
-                )
-              }
-              className="rounded-full bg-sky-500 px-3 py-5 text-sm leading-5 font-semibold text-white hover:bg-sky-700"
-            />
-            <button
-              onClick={() =>
-                setGem3(
-                  recordUniqueIdsDecorator(
-                    rollItems(3, manifestGemsGreen, gemCollisions),
-                    gemCollisions
-                  )
-                )
-              }
-              className="rounded-full bg-green-500 px-3 py-5 text-sm leading-5 font-semibold text-white hover:bg-green-700"
-            />
-          </div>
-
-          <div style={cssGenSize} className={`overflow-hidden`}>
-            <ItemIcon data={gem3[0]}></ItemIcon>
-          </div>
-          <div style={cssGenSize} className={`overflow-hidden`}>
-            <ItemIcon data={gem3[1]}></ItemIcon>
-          </div>
-          <div style={cssGenSize} className={`overflow-hidden`}>
-            <ItemIcon data={gem3[2]}></ItemIcon>
-          </div>
+          <GemButtonRow
+            gemSetter={setGem3}
+            collisionSource={gemCollisions}
+            collisionSetter={setGemCollisions}
+            itemAmount={3}
+            dataSources={[manifestGemsRed, manifestGemsBlue, manifestGemsGreen]}
+          />
+          <ItemsContainer data={gem3} size={cssGemize} itemCount={3} />
         </div>
         <div>
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <button
-              onClick={() =>
-                setGem4(
-                  recordUniqueIdsDecorator(
-                    rollItems(3, manifestGemsRed, gemCollisions),
-                    gemCollisions
-                  )
-                )
-              }
-              className="rounded-full bg-red-400 px-3 py-5 text-sm leading-5 font-semibold text-white hover:bg-red-700"
-            />
-            <button
-              onClick={() =>
-                setGem4(
-                  recordUniqueIdsDecorator(
-                    rollItems(3, manifestGemsBlue, gemCollisions),
-                    gemCollisions
-                  )
-                )
-              }
-              className="rounded-full bg-sky-500 px-3 py-5 text-sm leading-5 font-semibold text-white hover:bg-sky-700"
-            />
-            <button
-              onClick={() =>
-                setGem4(
-                  recordUniqueIdsDecorator(
-                    rollItems(3, manifestGemsGreen, gemCollisions),
-                    gemCollisions
-                  )
-                )
-              }
-              className="rounded-full bg-green-500 px-3 py-5 text-sm leading-5 font-semibold text-white hover:bg-green-700"
-            />
-          </div>
-
-          <div style={cssGenSize} className={`overflow-hidden`}>
-            <ItemIcon data={gem4[0]}></ItemIcon>
-          </div>
-          <div style={cssGenSize} className={`overflow-hidden`}>
-            <ItemIcon data={gem4[1]}></ItemIcon>
-          </div>
-          <div style={cssGenSize} className={`overflow-hidden`}>
-            <ItemIcon data={gem4[2]}></ItemIcon>
-          </div>
+          <GemButtonRow
+            gemSetter={setGem4}
+            collisionSource={gemCollisions}
+            collisionSetter={setGemCollisions}
+            itemAmount={3}
+            dataSources={[manifestGemsRed, manifestGemsBlue, manifestGemsGreen]}
+          />
+          <ItemsContainer data={gem4} size={cssGemize} itemCount={3} />
         </div>
       </div>
     </>
