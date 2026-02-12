@@ -1,6 +1,8 @@
-import type { itemData } from "../../scripts/defs/models/itemData";
-
-export default function ItemIcon({ data }: { data: itemData | null }) {
+export default function ItemIcon({
+  data,
+}: {
+  data: { icon_url: string } | null;
+}) {
   // stackoverflow.com/questions/19126185/setting-an-image-src-to-empty
   const nullImage: string =
     "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
