@@ -9,6 +9,7 @@ import ItemsContainer from "./components/ItemContainer";
 import Helper from "./scripts/functional/Helper";
 import GemButtonRow from "./components/GemButtonRow";
 import type { armorData } from "./scripts/defs/models/armorData";
+import type { itemData } from "./scripts/defs/models/itemData";
 
 function App() {
   const manifestPrimaries = useMemo<weaponData[]>(
@@ -56,7 +57,8 @@ function App() {
   const armorBonusFlagsKeys = Object.keys(armorBonusFlags).slice(
     1
   ) as (keyof typeof armorBonusFlags)[];
-  const getRandomBuffs = (n: number) => {
+
+  const getRandomBuffs = (n: number): bigint[] => {
     const randomBuffsIdx: number[] = Helper.generateListOfUniqueIdx(
       n,
       armorBonusFlagsKeys
@@ -66,19 +68,33 @@ function App() {
       randomBuffsIdx.map((x) => `${armorBonusFlagsKeys[x]} : `)
     );
 
-    const randomBuffs = randomBuffsIdx.map(
+    return randomBuffsIdx.map(
       (idx) => armorBonusFlags[armorBonusFlagsKeys[idx]]
-    );
-    return randomBuffs.reduce(
-      (running: armorBonusFlags, cur: armorBonusFlags) => running | cur,
-      0n
     );
   };
 
-  const queryArmors = (target: armorBonusFlags) => {
-    const result: armorData[] = armors.filter((x) => {
-      const bothAndIndividually = (x.armorBonus.armorBonusTags & target) !== 0n;
-      return bothAndIndividually;
+  const queryArmorsByBonuses = (
+    nPerBonus: number,
+    bonuses: armorBonusFlags[]
+  ): armorData[] => {
+    let result: armorData[] = [];
+    const collisionSet = new Set<UUID>();
+    const collisionPredicate = (x: itemData) => {
+      if (collisionSet.has(x.id)) return false;
+      collisionSet.add(x.id);
+      return true;
+    };
+
+    bonuses.forEach((xBonus) => {
+      const filteredArmors = armors.filter(
+        (xarmor) => (xarmor.armorBonus.armorBonusTags & xBonus) !== 0n //bothAndIndividually
+      );
+      const chosenArmors = Helper.rollItems(
+        nPerBonus,
+        filteredArmors,
+        collisionPredicate
+      );
+      result = [...result, ...chosenArmors];
     });
 
     return result;
@@ -207,9 +223,7 @@ function App() {
         <div>
           <button
             onClick={() =>
-              set_items_armor_buffs(
-                Helper.rollItems(6, queryArmors(getRandomBuffs(2)))
-              )
+              set_items_armor_buffs(queryArmorsByBonuses(2, getRandomBuffs(3)))
             }
             className="rounded-full bg-sky-500 px-5 py-2 text-sm leading-5 font-semibold text-white hover:bg-sky-700"
           >
