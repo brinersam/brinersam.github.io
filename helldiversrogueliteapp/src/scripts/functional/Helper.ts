@@ -3,29 +3,40 @@ import type { itemData } from "../defs/models/itemData";
 
 export default class Helper{
 
-    static generateListOfUniqueIdx = (
+    static generateListOfUniqueIdx = <T,>(
         n: number,
-        source: itemData[],
-        excludeIds?: Set<UUID> | null
+        dataSource: T[],
+        excludeIds?: Set<UUID> | null,
+        idGetter?: (value: T) => UUID
       ): number[] => {
         const resultsIdxSet = new Set<number>();
-        const itemCount = source.length;
+        const itemCount = dataSource.length;
+
+        if (dataSource.length < n)
+            return Array.from({ length: dataSource.length }, (v,i) => i+1);
     
         while (resultsIdxSet.size < n) {
           let randomIdx = Math.floor(Math.random() * itemCount); // 0 - itemcount-1
-          let idxItemId: UUID = source[randomIdx].id;
+          let idxItemId: UUID | null = null;
+          if (idGetter != null)
+          {
+            idxItemId = idGetter(dataSource[randomIdx]);
+          }
     
           const stepDirection = Math.random() > 0.5 ? 1 : -1;
           const startingIdx = randomIdx;
     
-          const idIsNotUnique = (id: UUID) =>
-            excludeIds == null ? false : excludeIds.has(id);
+          const idIsNotUnique = (id: UUID | null) =>
+            excludeIds == null || idxItemId == null ? false : excludeIds.has(id as UUID);
     
           while (resultsIdxSet.has(randomIdx) || idIsNotUnique(idxItemId)) {
             randomIdx = randomIdx + stepDirection;
             randomIdx = randomIdx < 0 ? itemCount - 1 : randomIdx % itemCount;
     
-            idxItemId = source[randomIdx].id;
+            if (idGetter != null)
+            {
+              idxItemId = idGetter(dataSource[randomIdx]);
+            }
     
             if (randomIdx == startingIdx) {
               console.log("DEBUG: infinite loop prevented");
@@ -40,25 +51,26 @@ export default class Helper{
 
     static rollItems = <T extends itemData>(
         n: number,
-        source: T[],
+        dataSource: T[],
         excludeIds?: Set<UUID>
       ): T[] => {
         const chosenItems: T[] = [];
-        Helper.generateListOfUniqueIdx(n, source, excludeIds).forEach(
-          (v, i) => (chosenItems[i] = source[v])
+        const idGetter = (x : itemData) => x.id;
+        Helper.generateListOfUniqueIdx(n, dataSource, excludeIds, idGetter).forEach(
+          (v, i) => (chosenItems[i] = dataSource[v])
         );
         return chosenItems;
       };
     
     static recordUniqueIdsDecorator = <T extends itemData>(
-        source: T[],
-        collisionIdSet: Set<UUID>,
-        setter: React.Dispatch<React.SetStateAction<Set<string>>>
+        dataSource: T[],
+        collisionSource: Set<UUID>,
+        collisionSourceSetter: React.Dispatch<React.SetStateAction<Set<string>>>
       ): T[] => {
-        const updatedSet = new Set<UUID>(collisionIdSet);
-        source.forEach((x) => updatedSet.add(x.id));
-        setter(updatedSet);
-        return source;
+        const updatedSet = new Set<UUID>(collisionSource);
+        dataSource.forEach((x) => updatedSet.add(x.id));
+        collisionSourceSetter(updatedSet);
+        return dataSource;
       };
 
 }

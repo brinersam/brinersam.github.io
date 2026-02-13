@@ -1,4 +1,4 @@
-// interface armorBonus TODO
+// interface armorBonus
 // {
 //     description : string,
 //     icon_url : string,
@@ -6,61 +6,58 @@
 // }
 
 export const armorBonusFlags = {
-    None : 0,
+    None : 0n,
     DmgToStam : 1n << 0n,
     HighArmor : 1n << 1n,
-    Wildwest : 1n << 2n,
-    ScoutPing : 1n << 3n,
-    Democracy : 1n << 4n,
+    ScoutPing : 1n << 2n,
+    Democracy : 1n << 3n,
 
-    ReducedNoise : 1n << 5n,
-    ReducedDetection : 1n << 6n,
+    ReducedNoise : 1n << 4n,
+    ReducedDetection : 1n << 5n,
 
-    NoRagdolling : 1n << 7n,
-    NoBleeding : 1n << 8n,
-    NoBrokenLegs : 1n << 9n,
-    NoFlinch : 1n << 10n,
-    NoBrokenLimbs : 1n << 11n,
+    NoRagdolling : 1n << 6n,
+    NoBleeding : 1n << 7n,
+    NoBrokenLegs : 1n << 8n,
+    NoFlinch : 1n << 9n,
+    // NoBrokenLimbs : 1n << 10n,
 
-    ResistanceAcid : 1n << 12n,
-    ResistanceExplosive : 1n << 13n,
-    ResistanceElectric : 1n << 14n,
-    ResistanceFire : 1n << 15n,
-    ResistanceGas : 1n << 16n,
+    ResistanceAcid : 1n << 11n,
+    ResistanceExplosive : 1n << 12n,
+    ResistanceElectric : 1n << 13n,
+    ResistanceFire : 1n << 14n,
+    ResistanceGas : 1n << 15n,
 
-    ResistanceChest : 1n << 17n,
-    ResistanceLimbs : 1n << 18n,
+    ResistanceChest : 1n << 16n,
+    ResistanceLimbs : 1n << 17n,
 
-    StrongerThrow: 1n << 19n,
-    StrongerMelee : 1n << 20n,
-    StrongerPOIRange : 1n << 21n,
+    StrongerThrow: 1n << 18n,
+    StrongerMelee : 1n << 19n,
+    StrongerPOIRange : 1n << 20n,
 
-    Secondary_FasterReload : 1n << 22n,
-    Secondary_ReducedRecoil : 1n << 23n,
-    Secondary_FasterHolster : 1n << 24n,
+    Secondary_FasterReload : 1n << 21n,
+    Secondary_ReducedRecoil : 1n << 22n,
+    Secondary_FasterHolster : 1n << 23n,
 
-    Primary_FasterReload  : 1n << 25n,
+    Primary_FasterReload  : 1n << 24n,
 
-    Weapons_MoreAmmo  : 1n << 26n,
-    Weapons_StrongerHandling : 1n << 27n,
-    Weapons_ReducedRecoil_CrouchProne : 1n << 28n,
+    Weapons_MoreAmmo  : 1n << 25n,
+    Weapons_StrongerHandling : 1n << 26n,
+    Weapons_ReducedRecoil_CrouchProne : 1n << 27n,
 
-    Death_Ressurection : 1n << 29n,
-    Death_Explode : 1n << 30n,
+    Death_Ressurection : 1n << 28n,
+    Death_Explode : 1n << 29n,
 
-    Grenades_More : 1n << 31n,
+    Grenades_More : 1n << 30n,
 
-    Stim_Longer : 1n << 32n,
-    Stim_More : 1n << 33n,
-
-
+    Stim_Longer : 1n << 31n,
+    Stim_More : 1n << 32n,
 } as const;
 export type armorBonusFlags = typeof armorBonusFlags[keyof typeof armorBonusFlags];
 
 
 
 
-export const armorBonusesEnum = { // todo look up how to reinforce intelisence helping while typizing this to whatever it is
+export const armorBonusesEnum = { 
     SupplementaryAdrenaline : {
         description : "When the wearer takes damage, they regain some stamina.Provides a higher armor rating.",
         icon_url : "./Supplementary_Adrenaline_Armor_Passive_Icon",
@@ -181,5 +178,5 @@ export const armorBonusesEnum = { // todo look up how to reinforce intelisence h
         icon_url : "./Extra_Padding_Armor_Passive_Icon",
         armorBonusTags : armorBonusFlags.HighArmor
     }
-} as const;
+};
 export type armorBonusesEnum = typeof armorBonusesEnum[keyof typeof armorBonusesEnum];

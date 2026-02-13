@@ -25,6 +25,7 @@ export default function GemButtonRow({
       {dataSources.map((value, idx) => {
         return (
           <button
+            key={idx}
             onClick={() =>
               gemSetter(
                 Helper.recordUniqueIdsDecorator(

@@ -9,17 +9,19 @@ export default function ItemsContainer({
   data: { icon_url: string }[];
   itemCount?: number;
 }) {
-  let itemData: { icon_url: string }[] | null[] = data;
+  let itemData: ({ icon_url: string } | null)[] = data;
 
   if (itemCount != null && itemCount > 0) {
     itemData = data.slice(0, itemCount);
   }
-  if (itemData.length <= 0) {
-    itemData = Array.from({ length: itemCount as number }, () => null);
+  if (itemData.length <= 0 || itemData.length < (itemCount as number)) {
+    const emptiesToFill = (itemCount ?? 0) - itemData.length;
+    const emptiesarray = Array.from({ length: emptiesToFill }, () => null);
+    itemData = itemData.concat(emptiesarray);
   }
 
   return (
-    <div>
+    <>
       {itemData.map((v, idx) => {
         return (
           <div key={idx} style={size} className={`overflow-hidden`}>
@@ -27,6 +29,6 @@ export default function ItemsContainer({
           </div>
         );
       })}
-    </div>
+    </>
   );
 }
