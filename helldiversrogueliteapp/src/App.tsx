@@ -62,7 +62,7 @@ function App() {
       randomBuffsData.map((x) => x.value)
     );
 
-    set_items_armor_buffs_names(randomBuffsData.map((x) => `: ${x.name} :`));
+    set_items_armor_buffs_names(randomBuffsData.map((x) => x.name));
     set_items_armor_buffs(randomArmors);
   };
 
@@ -171,15 +171,17 @@ function App() {
             onClick={() => setArmors(3, 2)}
             className="rounded-full bg-sky-500 px-5 py-2 text-sm leading-5 font-semibold text-white hover:bg-sky-700"
           >
-            Get random buff (current : {items_armor_buffs_names})
+            Get random buff [{items_armor_buffs_names.map((x) => `: ${x} :`)}]
           </button>
         </div>
       </div>
       <div>
         <div
           style={{
+            height: `${cssArmorSize.height * 2}px`,
             width: `${cssArmorSize.width * 3}px`,
             display: "flex",
+            flexDirection: "column",
             flexWrap: "wrap",
           }}
         >
