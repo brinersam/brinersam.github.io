@@ -54,6 +54,10 @@ export const armorBonusFlags = {
 } as const;
 export type armorBonusFlags = typeof armorBonusFlags[keyof typeof armorBonusFlags];
 
+export const armorBonusFlagsKeys = Object.keys(armorBonusFlags).slice(
+    1
+  ) as (keyof typeof armorBonusFlags)[];
+export type armorBonusFlagsKeys = typeof armorBonusFlagsKeys;
 
 
 

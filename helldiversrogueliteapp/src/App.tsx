@@ -1,15 +1,14 @@
 import "./App.css";
-import { armors, stratagems, weapons } from "./scripts/data/item_manifests";
+import { stratagems, weapons } from "./scripts/data/item_manifests";
 import type { weaponData } from "./scripts/defs/models/weaponData";
 import { useMemo, useState } from "react";
 import type { stratagemData } from "./scripts/defs/models/stratagemData";
 import type { UUID } from "./scripts/defs/helpers/appUUID";
-import { armorBonusFlags } from "./scripts/defs/models/armorBonus";
 import ItemsContainer from "./components/ItemContainer";
 import Helper from "./scripts/functional/Helper";
 import GemButtonRow from "./components/GemButtonRow";
 import type { armorData } from "./scripts/defs/models/armorData";
-import type { itemData } from "./scripts/defs/models/itemData";
+import ArmorFunctions from "./scripts/functional/ArmorFunctions";
 
 function App() {
   const manifestPrimaries = useMemo<weaponData[]>(
@@ -37,69 +36,6 @@ function App() {
     []
   );
 
-  // console.log(
-  //   armors
-  //     .filter((x) => {
-  //       const target =
-  //         armorBonusFlags.Grenades_More | armorBonusFlags.ResistanceChest;
-
-  //       const bothOnly = (x.armorBonus.armorBonusTags & target) === target; // if empty result or less than needed, then do other one
-  //       const bothAndIndividually =
-  //         (x.armorBonus.armorBonusTags & target) !== 0n;
-
-  //       return bothAndIndividually;
-  //     })
-  //     // .filter((x) => x.armorWeight == "Heavy")
-  //     .map((x) => `${x.name} : ${x.armorBonus.description} ::: \n`)
-  //     .toString()
-  // );
-
-  const armorBonusFlagsKeys = Object.keys(armorBonusFlags).slice(
-    1
-  ) as (keyof typeof armorBonusFlags)[];
-
-  const getRandomBuffs = (n: number): bigint[] => {
-    const randomBuffsIdx: number[] = Helper.generateListOfUniqueIdx(
-      n,
-      armorBonusFlagsKeys
-    );
-
-    set_items_armor_buffs_names(
-      randomBuffsIdx.map((x) => `${armorBonusFlagsKeys[x]} : `)
-    );
-
-    return randomBuffsIdx.map(
-      (idx) => armorBonusFlags[armorBonusFlagsKeys[idx]]
-    );
-  };
-
-  const queryArmorsByBonuses = (
-    nPerBonus: number,
-    bonuses: armorBonusFlags[]
-  ): armorData[] => {
-    let result: armorData[] = [];
-    const collisionSet = new Set<UUID>();
-    const collisionPredicate = (x: itemData) => {
-      if (collisionSet.has(x.id)) return false;
-      collisionSet.add(x.id);
-      return true;
-    };
-
-    bonuses.forEach((xBonus) => {
-      const filteredArmors = armors.filter(
-        (xarmor) => (xarmor.armorBonus.armorBonusTags & xBonus) !== 0n //bothAndIndividually
-      );
-      const chosenArmors = Helper.rollItems(
-        nPerBonus,
-        filteredArmors,
-        collisionPredicate
-      );
-      result = [...result, ...chosenArmors];
-    });
-
-    return result;
-  };
-
   const cssWeaponSize = { width: 200, height: 110 };
   const cssGemSize = { width: 100, height: 100 };
   const cssArmorSize = { width: 200, height: 200 };
@@ -119,6 +55,16 @@ function App() {
   const [items_armor_buffs_names, set_items_armor_buffs_names] = useState<
     string[]
   >([]);
+  const setArmors = (nBuffs: number, nArmors: number) => {
+    const randomBuffsData = ArmorFunctions.getRandomBuffs(nBuffs);
+    const randomArmors = ArmorFunctions.queryArmorsByBonuses(
+      nArmors,
+      randomBuffsData.map((x) => x.value)
+    );
+
+    set_items_armor_buffs_names(randomBuffsData.map((x) => `: ${x.name} :`));
+    set_items_armor_buffs(randomArmors);
+  };
 
   const resetAll = () => {
     set_items_Primary([]);
@@ -222,9 +168,7 @@ function App() {
       <div style={{ display: "flex" }}>
         <div>
           <button
-            onClick={() =>
-              set_items_armor_buffs(queryArmorsByBonuses(2, getRandomBuffs(3)))
-            }
+            onClick={() => setArmors(3, 2)}
             className="rounded-full bg-sky-500 px-5 py-2 text-sm leading-5 font-semibold text-white hover:bg-sky-700"
           >
             Get random buff (current : {items_armor_buffs_names})
@@ -245,13 +189,6 @@ function App() {
             itemCount={6}
           />
         </div>
-        {/* <div style={{ color: "white" }}>
-          {items_armor_buffs.map((x) => (
-            <p>
-              {x.name}:{x.armorBonus.description}
-            </p>
-          ))}
-        </div> */}
       </div>
     </>
   );
