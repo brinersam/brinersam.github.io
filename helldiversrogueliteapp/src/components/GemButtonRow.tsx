@@ -28,8 +28,9 @@ export default function GemButtonRow({
             key={idx}
             onClick={() =>
               gemSetter(
-                Helper.recordUniqueIdsDecorator(
-                  Helper.rollItems(itemAmount, value, collisionSource),
+                Helper.rollItemsWSharedCollisions(
+                  itemAmount,
+                  value,
                   collisionSource,
                   collisionSetter
                 )
