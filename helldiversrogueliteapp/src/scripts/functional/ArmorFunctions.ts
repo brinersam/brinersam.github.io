@@ -30,6 +30,10 @@ export default class ArmorFunctions{
       ): armorData[] => {
         let result: armorData[] = [];
     
+        const freshCollisionSet = new Set<UUID>(armorCollisions); 
+        // we make another set here, since even if we update state set inside that function
+        // we still send old set again since no refresh happened to actually update it inbetween foreach calls
+
         bonuses.forEach((xBonus) => {
           const filteredArmors = armors.filter(
             (xarmor) => (xarmor.armorBonus.armorBonusTags & xBonus) !== 0n //bothAndIndividually
@@ -37,12 +41,13 @@ export default class ArmorFunctions{
           const chosenArmors = Helper.rollItemsWSharedCollisions(
             nPerBonus,
             filteredArmors,
-            armorCollisions,
-            armorCollisionsSetter
+            freshCollisionSet,
+            (x) => (x.forEach(x => freshCollisionSet.add(x)))
           );
           result = [...result, ...chosenArmors];
         });
 
+        armorCollisionsSetter(freshCollisionSet);
         return result;
       };
 }

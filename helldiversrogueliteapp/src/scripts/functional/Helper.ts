@@ -63,7 +63,7 @@ export default class Helper{
         n: number,
         dataSource: T[],
         collisionSource: Set<UUID>,
-        collisionSourceSetter: React.Dispatch<React.SetStateAction<Set<string>>>
+        collisionSourceSetter: (set : Set<string>) => void
       ): T[] => {
 
         const newCollisionSet = new Set<UUID>(collisionSource);
@@ -77,5 +77,7 @@ export default class Helper{
         collisionSourceSetter(newCollisionSet);
         return rolledItems;
       };
+    
+    
 
 }
