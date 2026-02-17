@@ -6,5 +6,5 @@ export interface weaponData extends itemData {
     dmgType : dmgTypeFlags
 }
 
-export const weaponSlotEnum = ['Primary', 'Secondary', 'Grenade', 'Support'] as const;
+export const weaponSlotEnum = ['Primary', 'Secondary', 'Grenade', 'Support', 'BackpackDog'] as const;
 export type weaponSlotEnum = typeof weaponSlotEnum[number];
