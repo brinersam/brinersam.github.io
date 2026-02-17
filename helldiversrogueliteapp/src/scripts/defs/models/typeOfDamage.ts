@@ -8,5 +8,6 @@ export const dmgTypeFlags =
     Electricity : 1 << 4,
     Incendiary : 1 << 5,
     Stun : 1 << 6,
+    Gas : 1 << 7,
 } as const;
 export type dmgTypeFlags = typeof dmgTypeFlags[keyof typeof dmgTypeFlags];

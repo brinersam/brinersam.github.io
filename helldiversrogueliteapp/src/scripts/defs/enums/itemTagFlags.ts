@@ -5,7 +5,8 @@ export const itemTagFlags = {
     SEAF : 1 << 2,
     Orbital : 1 << 3,
     Melee : 1 << 4,
-    OneHanded : 1 << 5
+    OneHanded : 1 << 5,
+    Stealth : 1 << 6,
 } as const;
 
 export type itemTagFlags = typeof itemTagFlags[keyof typeof itemTagFlags];
