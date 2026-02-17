@@ -26,7 +26,10 @@ export default class Helper{
             const item = dataSource[randomIdx];
 
             if (randomIdx == startingIdx) // infinite loop
+            {
+              console.log("infinite loop avoided!");
               break;
+            }
 
             if (resultsIdxSet.has(randomIdx)) // duplicate idx
               continue;
