@@ -32,11 +32,11 @@ export const armorBonusFlags = {
 
     StrongerThrow: 1n << 18n,
     StrongerMelee : 1n << 19n,
-    StrongerPOIRange : 1n << 20n,
+    // StrongerPOIRange : 1n << 20n,  gimmick
 
     Secondary_FasterReload : 1n << 21n,
-    Secondary_ReducedRecoil : 1n << 22n,
-    Secondary_FasterHolster : 1n << 23n,
+    // Secondary_ReducedRecoil : 1n << 22n, no point in having all these, it just offsets the weight unnecessarily
+    // Secondary_FasterHolster : 1n << 23n,
 
     Primary_FasterReload  : 1n << 24n,
 
@@ -85,7 +85,7 @@ export const armorBonusesEnum = {
     FeetFirst : {
         description : "Wearer makes 50% less noise when moving.Increases point-of-interest identification range by 30%.Provides immunity to leg injuries.",
         icon_url : "./Feet_First_Armor_Passive_Icon",
-        armorBonusTags : armorBonusFlags.ReducedNoise | armorBonusFlags.StrongerPOIRange | armorBonusFlags.NoBrokenLegs
+        armorBonusTags : armorBonusFlags.ReducedNoise | armorBonusFlags.NoBrokenLegs// | armorBonusFlags.StrongerPOIRange
     },
     AdrenoDefibrillator : {
         description : "Provides one-time, short-lived resuscitation upon death, given that the Helldiver's body is still intact.Increases stim effect duration by 2.0s.Provides 50% resistance to arc damage.",
@@ -105,7 +105,7 @@ export const armorBonusesEnum = {
     Gunslinger: {
         description : "Increases sidearms reload speed by 40%.Sidearm draw/holster speed increased by 50%.Sidearm recoil reduced by 70%.",
         icon_url : "./Gunslinger_Armor_Passive_Icon",
-        armorBonusTags : armorBonusFlags.Secondary_FasterReload | armorBonusFlags.Secondary_FasterHolster | armorBonusFlags.Secondary_ReducedRecoil
+        armorBonusTags : armorBonusFlags.Secondary_FasterReload // | armorBonusFlags.Secondary_FasterHolster | armorBonusFlags.Secondary_ReducedRecoil
     },
     IntegratedExplosives : {
         description : "Armor explodes 1.5s after the wearer dies.Increases initial inventory and holding capacity of throwables by +2.",

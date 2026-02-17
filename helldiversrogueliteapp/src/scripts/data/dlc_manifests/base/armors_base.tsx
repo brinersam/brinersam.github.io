@@ -6,7 +6,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "7c0e844c-0582-47d1-931b-614c6aef9d98",
     name: "SC-37 Legionnaire",
-    icon_url: "./SC-37_Legionnaire_Body_Icon.webp",
+    icon_url: "./armors/SC-37_Legionnaire_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -16,7 +16,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "82dcb704-4cbf-4922-a466-8204e7732c15",
     name: "SC-34 Infiltrator",
-    icon_url: "./SC-34_Infiltrator_Body_Icon.webp",
+    icon_url: "./armors/SC-34_Infiltrator_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -26,7 +26,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "24c42180-4275-4d8c-8ab7-9f9f8732a9c0",
     name: "SC-30 Trailblazer Scout",
-    icon_url: "./SC-30_Trailblazer_Scout_Body_Icon.webp",
+    icon_url: "./armors/SC-30_Trailblazer_Scout_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -36,7 +36,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "14b6cd32-6191-482d-a104-a0e7e1669e89",
     name: "CE-74 Breaker",
-    icon_url: "./CE-74_Breaker_Body_Icon.webp",
+    icon_url: "./armors/CE-74_Breaker_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -46,7 +46,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "83093c29-34f3-44ad-9a5d-9e84a4750b70",
     name: "FS-38 Eradicator",
-    icon_url: "./FS-38_Eradicator_Body_Icon.webp",
+    icon_url: "./armors/FS-38_Eradicator_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -56,7 +56,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "ae95247e-2920-4106-ba5f-9ba22160a2ed",
     name: "B-08 Light Gunner",
-    icon_url: "./B-08_Light_Gunner_Body_Icon.webp",
+    icon_url: "./armors/B-08_Light_Gunner_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -66,7 +66,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "42c2b605-d3d9-4191-95e8-fba8fa2e820d",
     name: "CM-21 Trench Paramedic",
-    icon_url: "./CM-21_Trench_Paramedic_Body_Icon.webp",
+    icon_url: "./armors/CM-21_Trench_Paramedic_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -76,7 +76,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "736400f4-bce1-43ed-997c-d782d13c0f6d",
     name: "CE-67 Titan",
-    icon_url: "./CE-67_Titan_Body_Icon.webp",
+    icon_url: "./armors/CE-67_Titan_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -86,7 +86,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "4f72617f-322f-46d2-a370-d648d5c84f2d",
     name: "EX-00 Prototype X",
-    icon_url: "./EX-00_Prototype_X_Body_Icon.webp",
+    icon_url: "./armors/EX-00_Prototype_X_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -96,7 +96,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "8c47778e-897b-4b34-a98a-d3c555d168f8",
     name: "CE-07 Demolition Specialist",
-    icon_url: "./CE-07_Demolition_Specialist_Body_Icon.webp",
+    icon_url: "./armors/CE-07_Demolition_Specialist_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -106,7 +106,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "075cada8-f887-43b5-aa83-bf150621afaf",
     name: "FS-37 Ravager",
-    icon_url: "./FS-37_Ravager_Body_Icon.webp",
+    icon_url: "./armors/FS-37_Ravager_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -116,7 +116,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "44cc3bdb-15b4-4a2a-a775-3ee7e94404e9",
     name: "CW-4 Arctic Ranger",
-    icon_url: "./CW-4_Arctic_Ranger_Body_Icon.webp",
+    icon_url: "./armors/CW-4_Arctic_Ranger_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -126,7 +126,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "6a2534d0-b646-48cc-9b1c-4c92a3a1b257",
     name: "PH-9 Predator",
-    icon_url: "./PH-9_Predator_Body_Icon.webp",
+    icon_url: "./armors/PH-9_Predator_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -136,7 +136,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "51becfc7-2376-4ff6-89eb-1e6840cf72e2",
     name: "I-09 Heatseeker",
-    icon_url: "./I-09_Heatseeker_Body_Icon.webp",
+    icon_url: "./armors/I-09_Heatseeker_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -146,7 +146,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "17265347-2fd3-40bb-8539-6e03d8dda1d8",
     name: "AF-50 Noxious Ranger",
-    icon_url: "./AF-50_Noxious_Ranger_Body_Icon.webp",
+    icon_url: "./armors/AF-50_Noxious_Ranger_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -156,7 +156,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "65e963a3-f777-4d02-aac3-69826f2f26f2",
     name: "UF-16 Inspector",
-    icon_url: "./UF-16_Inspector_Body_Icon.webp",
+    icon_url: "./armors/UF-16_Inspector_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -166,7 +166,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "4e868d10-2ffe-45d6-b68e-687c5cb85537",
     name: "SR-24 Street Scout",
-    icon_url: "./SR-24_Street_Scout_Body_Icon.webp",
+    icon_url: "./armors/SR-24_Street_Scout_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -176,7 +176,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "45e9dc0a-9000-4a27-9165-cf5d0e10d21e",
     name: "AC-2 Obedient",
-    icon_url: "./AC-2_Obedient_Body_Icon.webp",
+    icon_url: "./armors/AC-2_Obedient_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -186,7 +186,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "5c00bed7-e3c5-462d-9755-d49d497baaf8",
     name: "IE-57 Hell-Bent",
-    icon_url: "./IE-57_Hell-Bent_Body_Icon.webp",
+    icon_url: "./armors/IE-57_Hell-Bent_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -196,7 +196,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "f9b413b5-ef17-4d99-b501-c2feda6dc875",
     name: "GS-11 Democracy's Deputy",
-    icon_url: "./GS-11_Democracy%27s_Deputy_Body_Icon.webp",
+    icon_url: "./armors/GS-11_Democracy%27s_Deputy_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -206,7 +206,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "db867382-8054-4e9b-97e3-ec416bd7bab4",
     name: "RE-1861 Parade Commander",
-    icon_url: "./RE-1861_Parade_Commander_Body_Icon.webp",
+    icon_url: "./armors/RE-1861_Parade_Commander_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -216,7 +216,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "67be4c33-b243-4977-8a14-53510c7fde18",
     name: "BP-32 Jackboot",
-    icon_url: "./BP-32_Jackboot_Body_Icon.webp",
+    icon_url: "./armors/BP-32_Jackboot_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -226,7 +226,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "9fd740f1-f7b5-486e-b5bd-9de487552aa0",
     name: "AD-11 Livewire",
-    icon_url: "./AD-11_Livewire_Body_Icon.webp",
+    icon_url: "./armors/AD-11_Livewire_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -236,7 +236,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "7342268e-ea09-4816-b507-61df4acc513e",
     name: "DS-10 Big Game Hunter",
-    icon_url: "./DS-10_Big_Game_Hunter_Body_Icon.webp",
+    icon_url: "./armors/DS-10_Big_Game_Hunter_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -246,7 +246,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "e73140a0-eb59-4770-9c2a-8781d5c68b2f",
     name: "RS-20 Constrictor",
-    icon_url: "./RS-20_Constrictor_Body_Icon.webp",
+    icon_url: "./armors/RS-20_Constrictor_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -256,8 +256,8 @@ export const armors_base: Array<armorData> = [
   {
     id: "ff55b267-40eb-403b-8d2a-a0aa9a174ca5",
     name: "RS-100 Sanctioner",
-    icon_url: "PLACEHOLDERRS-100_Sanctioner_Armor_Set_Image.png",
-    // icon_url: "./File:RS-100 Sanctioner Body Armory.webp",
+    icon_url: "./armors/PLACEHOLDERRS-100_Sanctioner_Armor_Set_Image.png",
+    // icon_url: "./armors/File:RS-100 Sanctioner Body Armory.webp",
 
     tags: itemTagFlags.None,
     quality: "Medium",
@@ -268,7 +268,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "ab2ff198-d9cf-4bcd-8bbd-8934b51db30f",
     name: "RS-89 Shadow Paragon",
-    icon_url: "./RS-89_Shadow_Paragon_Body_Armory.webp",
+    icon_url: "./armors/RS-89_Shadow_Paragon_Body_Armory.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -279,7 +279,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "076974c3-44e4-453c-b9cc-b0f0fc51c9b2",
     name: "B-01 Tactical",
-    icon_url: "./B-01_Tactical_Body_Icon.webp",
+    icon_url: "./armors/B-01_Tactical_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -289,7 +289,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "3a924825-c021-4fb0-8cbd-9aa66ddbffe1",
     name: "TR-7 Ambassador of the Brand",
-    icon_url: "./TR-7_Ambassador_of_the_Brand_Body_Icon.webp",
+    icon_url: "./armors/TR-7_Ambassador_of_the_Brand_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -299,7 +299,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "122077bb-a2c2-467b-a6a6-7c98dc10aaac",
     name: "TR-9 Cavalier of Democracy",
-    icon_url: "./TR-9_Cavalier_of_Democracy_Body_Icon.webp",
+    icon_url: "./armors/TR-9_Cavalier_of_Democracy_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -309,7 +309,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "17d64d82-2dfb-4363-a33a-2dd00a6cc902",
     name: "DP-53 Savior of the Free",
-    icon_url: "./DP-53_Savior_of_the_Free_Body_Icon.webp",
+    icon_url: "./armors/DP-53_Savior_of_the_Free_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -319,7 +319,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "1e49ab4b-672f-4e1c-8cb1-d3a0b776b724",
     name: "TR-117 Alpha Commander",
-    icon_url: "./TR-117_Alpha_Commander_Body_Icon.webp",
+    icon_url: "./armors/TR-117_Alpha_Commander_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -329,7 +329,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "2ce17ebd-e0b5-465f-af98-fa84de42c172",
     name: "SC-15 Drone Master",
-    icon_url: "./SC-15_Drone_Master_Body_Icon.webp",
+    icon_url: "./armors/SC-15_Drone_Master_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -339,7 +339,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "4ba66006-d8b0-4a2e-8db4-b375b3607415",
     name: "CE-35 Trench Engineer",
-    icon_url: "./CE-35_Trench_Engineer_Body_Icon.webp",
+    icon_url: "./armors/CE-35_Trench_Engineer_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -349,7 +349,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "4a284280-4984-4365-9dfc-2d85acf26adb",
     name: "CM-09 Bonesnapper",
-    icon_url: "./CM-09_Bonesnapper_Body_Icon.webp",
+    icon_url: "./armors/CM-09_Bonesnapper_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -359,7 +359,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "ba5c0dca-c168-4bf9-9f9d-b3bff4b4d709",
     name: "DP-40 Hero of the Federation",
-    icon_url: "./DP-40_Hero_of_the_Federation_Body_Icon.webp",
+    icon_url: "./armors/DP-40_Hero_of_the_Federation_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -369,7 +369,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "a211bb07-59dc-412d-b32b-e3ee28cc1c7f",
     name: "SA-04 Combat Technician",
-    icon_url: "./SA-04_Combat_Technician_Body_Icon.webp",
+    icon_url: "./armors/SA-04_Combat_Technician_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -379,7 +379,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "e6c39534-58bb-424c-bcc5-07ec87f821dc",
     name: "CM-14 Physician",
-    icon_url: "./CM-14_Physician_Body_Icon.webp",
+    icon_url: "./armors/CM-14_Physician_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -389,7 +389,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "294ca445-9dd9-415e-88d1-3bc82bcf255b",
     name: "DP-11 Champion of the People",
-    icon_url: "./DP-11_Champion_of_the_People_Body_Icon.webp",
+    icon_url: "./armors/DP-11_Champion_of_the_People_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -399,7 +399,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "30728c7c-24f5-42e5-b905-7333f542b46f",
     name: "SA-25 Steel Trooper",
-    icon_url: "./SA-25_Steel_Trooper_Body_Icon.webp",
+    icon_url: "./armors/SA-25_Steel_Trooper_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -409,7 +409,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "b5662846-74b1-4e3c-8c39-0ce814afb6ca",
     name: "SA-12 Servo Assisted",
-    icon_url: "./SA-12_Servo_Assisted_Body_Icon.webp",
+    icon_url: "./armors/SA-12_Servo_Assisted_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -419,7 +419,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "6a6a7c02-c8d0-497f-ac11-6222c7699b99",
     name: "B-24 Enforcer",
-    icon_url: "./B-24_Enforcer_Body_Icon.webp",
+    icon_url: "./armors/B-24_Enforcer_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -429,7 +429,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "1161455d-36d1-4dde-afbc-0c5efcd1caa9",
     name: "CE-81 Juggernaut",
-    icon_url: "./CE-81_Juggernaut_Body_Icon.webp",
+    icon_url: "./armors/CE-81_Juggernaut_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -439,7 +439,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "7080371d-99dc-4686-a11a-87ab0cf0ffc1",
     name: "FS-34 Exterminator",
-    icon_url: "./FS-34_Exterminator_Body_Icon.webp",
+    icon_url: "./armors/FS-34_Exterminator_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -449,7 +449,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "24fcac14-afd1-4227-8f12-e7b5c136dd69",
     name: "EX-03 Prototype 3",
-    icon_url: "./EX-03_Prototype_3_Body_Icon.webp",
+    icon_url: "./armors/EX-03_Prototype_3_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -459,7 +459,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "bacef5f5-6c0b-4b5e-bef7-b7152390c21f",
     name: "EX-16 Prototype 16",
-    icon_url: "./EX-16_Prototype_16_Body_Icon.webp",
+    icon_url: "./armors/EX-16_Prototype_16_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -469,7 +469,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "4b46b77e-eb17-47ed-9188-048652c9b55c",
     name: "CE-27 Ground Breaker",
-    icon_url: "./CE-27_Ground_Breaker_Body_Icon.webp",
+    icon_url: "./armors/CE-27_Ground_Breaker_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -479,7 +479,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "48587970-9813-4ffb-8c81-3ab6efe5f6d9",
     name: "CM-10 Clinician",
-    icon_url: "./CM-10_Clinician_Body_Icon.webp",
+    icon_url: "./armors/CM-10_Clinician_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -489,7 +489,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "dac83d2f-24e6-4a79-9fb6-3213f41098c8",
     name: "CW-9 White Wolf",
-    icon_url: "./CW-9_White_Wolf_Body_Icon.webp",
+    icon_url: "./armors/CW-9_White_Wolf_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -499,7 +499,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "27c12f56-e96b-49aa-8619-2374381363fc",
     name: "PH-56 Jaguar",
-    icon_url: "./PH-56_Jaguar_Body_Icon.webp",
+    icon_url: "./armors/PH-56_Jaguar_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -509,7 +509,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "c5121c27-0251-4e8b-976f-4024e680d84f",
     name: "TR-40 Gold Eagle",
-    icon_url: "./TR-40_Gold_Eagle_Body_Icon.webp",
+    icon_url: "./armors/TR-40_Gold_Eagle_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -519,7 +519,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "05604a28-0589-44c2-b4cb-ee391bd741c5",
     name: "I-92 Fire Fighter",
-    icon_url: "./I-92_Fire_Fighter_Body_Icon.webp",
+    icon_url: "./armors/I-92_Fire_Fighter_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -529,7 +529,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "8809826a-e4cc-475e-92e3-f5d932b5b252",
     name: "I-102 Draconaught",
-    icon_url: "./I-102_Draconaught_Body_Icon.webp",
+    icon_url: "./armors/I-102_Draconaught_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -539,7 +539,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "991b3e41-92d4-4cbd-ba84-02d9eb7662b9",
     name: "AF-91 Field Chemist",
-    icon_url: "./AF-91_Field_Chemist_Body_Icon.webp",
+    icon_url: "./armors/AF-91_Field_Chemist_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -549,7 +549,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "8c2ceb9b-5c7f-4dbc-8b2f-7cbdadb8c17b",
     name: "AF-02 Haz-Master",
-    icon_url: "./AF-02_Haz-Master_Body_Icon.webp",
+    icon_url: "./armors/AF-02_Haz-Master_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -559,7 +559,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "4894c6b0-14ef-4bd1-9721-b3cffa1378eb",
     name: "DP-00 Tactical",
-    icon_url: "./DP-00_Tactical_Body_Icon.webp",
+    icon_url: "./armors/DP-00_Tactical_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -569,7 +569,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "33085770-e71d-4194-b747-a24855e9f3fa",
     name: "UF-84 Doubt Killer",
-    icon_url: "./UF-84_Doubt_Killer_Body_Icon.webp",
+    icon_url: "./armors/UF-84_Doubt_Killer_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -579,7 +579,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "f20e7518-fbef-4c63-b0fd-3a3374fa380a",
     name: "UF-50 Bloodhound",
-    icon_url: "./UF-50_Bloodhound_Body_Icon.webp",
+    icon_url: "./armors/UF-50_Bloodhound_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -589,7 +589,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "a9e499b1-613d-4425-832c-5fb06a178d2b",
     name: "AC-1 Dutiful",
-    icon_url: "./AC-1_Dutiful_Body_Icon.webp",
+    icon_url: "./armors/AC-1_Dutiful_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -599,7 +599,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "31fdbb33-4bcb-4520-82d9-b145a14b3cdc",
     name: "IE-3 Martyr",
-    icon_url: "./IE-3_Martyr_Body_Icon.webp",
+    icon_url: "./armors/IE-3_Martyr_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -609,7 +609,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "46753270-0cfe-430d-8981-4da53b1098b1",
     name: "IE-12 Righteous",
-    icon_url: "./IE-12_Righteous_Body_Icon.webp",
+    icon_url: "./armors/IE-12_Righteous_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -619,7 +619,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "569ae176-9704-406e-81df-b72d9746f3c8",
     name: "B-22 Model Citizen",
-    icon_url: "./B-22_Model_Citizen_Body_Icon.webp",
+    icon_url: "./armors/B-22_Model_Citizen_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -629,7 +629,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "f4de73c6-13e6-4e42-9b6e-dfdcd8959f33",
     name: "GS-17 Frontier Marshal",
-    icon_url: "./GS-17_Frontier_Marshal_Body_Icon.webp",
+    icon_url: "./armors/GS-17_Frontier_Marshal_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -639,7 +639,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "f42888f9-1ef4-4ed2-ae9b-b8be4a70a944",
     name: "RE-2310 Honorary Guard",
-    icon_url: "./RE-2310_Honorary_Guard_Body_Icon.webp",
+    icon_url: "./armors/RE-2310_Honorary_Guard_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -649,7 +649,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "46c09f74-8939-4918-8e67-7d55b712ac2d",
     name: "BP-20 Correct Officer",
-    icon_url: "./BP-20_Correct_Officer_Body_Icon.webp",
+    icon_url: "./armors/BP-20_Correct_Officer_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -659,7 +659,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "f22011fa-12b8-4ab4-a629-9771c2ab094a",
     name: "AD-26 Bleeding Edge",
-    icon_url: "./AD-26_Bleeding_Edge_Body_Icon.webp",
+    icon_url: "./armors/AD-26_Bleeding_Edge_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -669,7 +669,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "c3740c6b-64a8-43dd-987b-a4d3ee0e7e9e",
     name: "A-9 Helljumper",
-    icon_url: "./A-9_Helljumper_Body_Icon.webp",
+    icon_url: "./armors/A-9_Helljumper_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -679,7 +679,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "212fe850-da1c-44aa-a852-5c0e3a9a8dd7",
     name: "A-35 Recon",
-    icon_url: "./A-35_Recon_Body_Icon.webp",
+    icon_url: "./armors/A-35_Recon_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -689,7 +689,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "eb75ba18-071d-4bf3-887b-7db7dc8784a4",
     name: "DS-191 Scorpion",
-    icon_url: "./DS-191_Scorpion_Body_Icon.webp",
+    icon_url: "./armors/DS-191_Scorpion_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -699,7 +699,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "9a7dfbe6-13bd-4a95-88c5-7e20eed3c9ad",
     name: "RS-6 Fiend Destroyer",
-    icon_url: "./RS-6_Fiend_Destroyer_Body_Icon.webp",
+    icon_url: "./armors/RS-6_Fiend_Destroyer_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -709,7 +709,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "b229f17b-c731-4aea-86df-3bd55cdba665",
     name: "RS-67 Null Cipher",
-    icon_url: "./RS-67_Null_Cipher_Body_Armory.webp",
+    icon_url: "./armors/RS-67_Null_Cipher_Body_Armory.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -719,7 +719,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "41b68681-d1a7-4fb1-8a7b-09b6ebc60e05",
     name: "SA-7 Headfirst",
-    icon_url: "./SA-7_Headfirst_Body_Icon.webp",
+    icon_url: "./armors/SA-7_Headfirst_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -729,8 +729,8 @@ export const armors_base: Array<armorData> = [
   {
     id: "cd84188f-f0ba-4348-99ac-0fd590213f03",
     name: "DP-8 Mountain-Scaled",
-    icon_url: "./PLACEHOLDER_DP-8_Mountain-Scaled_Body_Icon.webp",
-    // icon_url: "./DP-8_Mountain-Scaled_Body_Icon.webp",
+    icon_url: "./armors/PLACEHOLDER_DP-8_Mountain-Scaled_Body_Icon.webp",
+    // icon_url: "./armors/DP-8_Mountain-Scaled_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -741,7 +741,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "7ad8fbd3-ce17-4876-9c56-e3e3b594d77a",
     name: "TR-62 Knight",
-    icon_url: "./TR-62_Knight_Body_Icon.webp",
+    icon_url: "./armors/TR-62_Knight_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -751,7 +751,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "c524ee2b-6c6f-4a68-a98d-298b49d686ed",
     name: "FS-05 Marksman",
-    icon_url: "./FS-05_Marksman_Body_Icon.webp",
+    icon_url: "./armors/FS-05_Marksman_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -761,7 +761,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "e2a85f2b-8958-4129-b050-e7aa819318a2",
     name: "FS-23 Battle Master",
-    icon_url: "./FS-23_Battle_Master_Body_Icon.webp",
+    icon_url: "./armors/FS-23_Battle_Master_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -771,7 +771,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "f5233a61-5e43-4287-b971-da280228b9ff",
     name: "SA-32 Dynamo",
-    icon_url: "./SA-32_Dynamo_Body_Icon.webp",
+    icon_url: "./armors/SA-32_Dynamo_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -781,7 +781,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "55f81572-bdf4-4c80-824d-932c6d64bfd1",
     name: "B-27 Fortified Commando",
-    icon_url: "./B-27_Fortified_Commando_Body_Icon.webp",
+    icon_url: "./armors/B-27_Fortified_Commando_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -791,7 +791,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "56afc4a1-7017-45d2-986c-4e319c6581ce",
     name: "FS-61 Dreadnought",
-    icon_url: "./FS-61_Dreadnought_Body_Icon.webp",
+    icon_url: "./armors/FS-61_Dreadnought_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -801,7 +801,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "ea123921-4977-45c9-ab4b-4f0ce01407f0",
     name: "FS-11 Executioner",
-    icon_url: "./FS-11_Executioner_Body_Icon.webp",
+    icon_url: "./armors/FS-11_Executioner_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -811,7 +811,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "01808f16-7616-47bc-83c0-04e490c5731a",
     name: "CM-17 Butcher",
-    icon_url: "./CM-17_Butcher_Body_Icon.webp",
+    icon_url: "./armors/CM-17_Butcher_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -821,7 +821,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "16567993-a14c-44dd-a070-0c9aef5331b3",
     name: "FS-55 Devastator",
-    icon_url: "./FS-55_Devastator_Body_Icon.webp",
+    icon_url: "./armors/FS-55_Devastator_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -831,7 +831,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "9eb1cb52-4983-4f65-a12c-d033f4448529",
     name: "CE-64 Grenadier",
-    icon_url: "./CE-64_Grenadier_Body_Icon.webp",
+    icon_url: "./armors/CE-64_Grenadier_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -841,7 +841,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "e28dba2f-e97b-4711-a9f2-a5396b5cc8f0",
     name: "CW-36 Winter Warrior",
-    icon_url: "./CW-36_Winter_Warrior_Body_Icon.webp",
+    icon_url: "./armors/CW-36_Winter_Warrior_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -851,7 +851,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "0a01280c-4e78-496b-aa94-97a14cd756be",
     name: "CW-22 Kodiak",
-    icon_url: "./CW-22_Kodiak_Body_Icon.webp",
+    icon_url: "./armors/CW-22_Kodiak_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -861,7 +861,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "ea83908a-ecc2-4942-b679-60feb9cd0b30",
     name: "CE-101 Guerilla Gorilla",
-    icon_url: "./CE-101_Guerilla_Gorilla_Body_Icon.webp",
+    icon_url: "./armors/CE-101_Guerilla_Gorilla_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -871,7 +871,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "6f2c9c10-3cc5-407b-8471-a4b6ae4c16e2",
     name: "PH-202 Twigsnapper",
-    icon_url: "./PH-202_Twigsnapper_Body_Icon.webp",
+    icon_url: "./armors/PH-202_Twigsnapper_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -881,7 +881,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "3ac3e9e1-ed93-4c15-9aad-175d73166590",
     name: "I-44 Salamander",
-    icon_url: "./I-44_Salamander_Body_Icon.webp",
+    icon_url: "./armors/I-44_Salamander_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -891,7 +891,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "be74b1d6-efca-4395-8a90-433a34b0e4d0",
     name: "AF-52 Lockdown",
-    icon_url: "./AF-52_Lockdown_Body_Icon.webp",
+    icon_url: "./armors/AF-52_Lockdown_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -901,7 +901,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "1a47c827-d51c-43ec-9243-10ff23de3a95",
     name: "SR-64 Cinderblock",
-    icon_url: "./SR-64_Cinderblock_Body_Icon.webp",
+    icon_url: "./armors/SR-64_Cinderblock_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -911,7 +911,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "5f6a53c7-de5b-484b-a205-538788dab7ba",
     name: "SR-18 Roadblock",
-    icon_url: "./SR-18_Roadblock_Body_Icon.webp",
+    icon_url: "./armors/SR-18_Roadblock_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -921,7 +921,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "ceb9b298-73eb-416e-94d7-2de1e3ac79f7",
     name: "GS-66 Lawmaker",
-    icon_url: "./GS-66_Lawmaker_Body_Icon.webp",
+    icon_url: "./armors/GS-66_Lawmaker_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -931,7 +931,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "be021804-811a-46cc-8df4-a6190449d7bf",
     name: "RE-824 Bearer of the Standard",
-    icon_url: "./RE-824_Bearer_of_the_Standard_Body_Icon.webp",
+    icon_url: "./armors/RE-824_Bearer_of_the_Standard_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -941,7 +941,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "0317c9f8-9104-4bd9-a3cf-dd2530d84b62",
     name: "BP-77 Grand Juror",
-    icon_url: "./BP-77_Grand_Juror_Body_Icon.webp",
+    icon_url: "./armors/BP-77_Grand_Juror_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -951,7 +951,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "e170bb06-10e0-4340-9fd5-8cb55da433d6",
     name: "AD-49 Apollonian",
-    icon_url: "./AD-49_Apollonian_Body_Icon.webp",
+    icon_url: "./armors/AD-49_Apollonian_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -961,7 +961,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "293319a1-0380-4e0c-b3d4-d02a2a6bef09",
     name: "DS-42 Federation's Blade",
-    icon_url: "./DS-42_Federation%27s_Blade_Body_Icon.webp",
+    icon_url: "./armors/DS-42_Federation%27s_Blade_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -971,7 +971,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "dc203295-4a76-41a3-bf80-0bc159e35478",
     name: "RS-40 Beast of Prey",
-    icon_url: "./RS-40_Beast_of_Prey_Body_Icon.webp",
+    icon_url: "./armors/RS-40_Beast_of_Prey_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
@@ -981,7 +981,7 @@ export const armors_base: Array<armorData> = [
   {
     id: "59cf2846-3e17-459c-8056-f2a49f7033e2",
     name: "SA-8 Ram",
-    icon_url: "./SA-8_Ram_Body_Icon.webp",
+    icon_url: "./armors/SA-8_Ram_Body_Icon.webp",
     tags: itemTagFlags.None,
     quality: "Medium",
     inventoryOrder: 0,
