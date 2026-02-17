@@ -2,7 +2,6 @@ import { armors } from "../data/item_manifests";
 import type { UUID } from "../defs/helpers/appUUID";
 import { armorBonusFlagsKeys, armorBonusFlags } from "../defs/models/armorBonus";
 import type { armorData } from "../defs/models/armorData";
-import type { itemData } from "../defs/models/itemData";
 import Helper from "./Helper";
 
 export default class ArmorFunctions{
@@ -25,28 +24,25 @@ export default class ArmorFunctions{
 
     static queryArmorsByBonuses = (
         nPerBonus: number,
-        bonuses: armorBonusFlags[]
+        bonuses: armorBonusFlags[],
+        armorCollisions: Set<UUID>,
+        armorCollisionsSetter: React.Dispatch<React.SetStateAction<Set<string>>>
       ): armorData[] => {
         let result: armorData[] = [];
-        const collisionSet = new Set<UUID>();
-        const collisionPredicate = (x: itemData) => {
-          if (collisionSet.has(x.id)) return false;
-          collisionSet.add(x.id);
-          return true;
-        };
     
         bonuses.forEach((xBonus) => {
           const filteredArmors = armors.filter(
             (xarmor) => (xarmor.armorBonus.armorBonusTags & xBonus) !== 0n //bothAndIndividually
           );
-          const chosenArmors = Helper.rollItems(
+          const chosenArmors = Helper.rollItemsWSharedCollisions(
             nPerBonus,
             filteredArmors,
-            collisionPredicate
+            armorCollisions,
+            armorCollisionsSetter
           );
           result = [...result, ...chosenArmors];
         });
-    
+
         return result;
       };
 }

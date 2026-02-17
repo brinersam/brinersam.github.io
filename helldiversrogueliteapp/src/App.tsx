@@ -51,6 +51,9 @@ function App() {
     new Set<UUID>()
   );
 
+  const [armorCollisions, setArmorCollisions] = useState<Set<UUID>>(
+    new Set<UUID>()
+  );
   const [items_armor_buffs, set_items_armor_buffs] = useState<armorData[]>([]);
   const [items_armor_buffs_names, set_items_armor_buffs_names] = useState<
     string[]
@@ -59,7 +62,9 @@ function App() {
     const randomBuffsData = ArmorFunctions.getRandomBuffs(nBuffs);
     const randomArmors = ArmorFunctions.queryArmorsByBonuses(
       nArmors,
-      randomBuffsData.map((x) => x.value)
+      randomBuffsData.map((x) => x.value),
+      armorCollisions,
+      setArmorCollisions
     );
 
     set_items_armor_buffs_names(randomBuffsData.map((x) => x.name));
@@ -76,6 +81,7 @@ function App() {
     setGemCollisions(new Set<UUID>());
     set_items_armor_buffs([]);
     set_items_armor_buffs_names([]);
+    setArmorCollisions(new Set<UUID>());
   };
 
   return (
