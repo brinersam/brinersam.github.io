@@ -8,18 +8,24 @@ export default function ItemIcon({
     "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
   return (
-    <>
+    <div
+      style={{
+        background: "radial-gradient(circle at center, #d1c9c9, #282929)",
+        borderWidth: "1px",
+        borderColor: "black",
+      }}
+    >
       <img
         style={{
-          borderWidth: "1px",
-          borderColor: "black",
           flex: "1 1 100%",
           width: "100%",
           height: "100%",
           objectFit: "fill",
+          filter:
+            "drop-shadow(1px 1px 0 #1b1b1b) drop-shadow(1px -1px 0 #1b1b1b)",
         }}
         src={data?.icon_url ?? nullImage}
       ></img>
-    </>
+    </div>
   );
 }
