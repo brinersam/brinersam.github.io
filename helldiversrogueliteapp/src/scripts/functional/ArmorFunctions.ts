@@ -25,14 +25,10 @@ export default class ArmorFunctions{
     static queryArmorsByBonuses = (
         nPerBonus: number,
         bonuses: armorBonusFlags[],
-        armorCollisions: Set<UUID>,
-        armorCollisionsSetter: React.Dispatch<React.SetStateAction<Set<string>>>
       ): armorData[] => {
         let result: armorData[] = [];
     
-        const freshCollisionSet = new Set<UUID>(armorCollisions); 
-        // we make another set here, since even if we update state set inside that function
-        // we still send old set again since no refresh happened to actually update it inbetween foreach calls
+        const collisionSet = new Set<UUID>(); 
 
         bonuses.forEach((xBonus) => {
           const filteredArmors = armors.filter(
@@ -41,13 +37,12 @@ export default class ArmorFunctions{
           const chosenArmors = Helper.rollItemsWSharedCollisions(
             nPerBonus,
             filteredArmors,
-            freshCollisionSet,
-            (x) => (x.forEach(x => freshCollisionSet.add(x)))
+            collisionSet,
+            (x) => (x.forEach(x => collisionSet.add(x)))
           );
           result = [...result, ...chosenArmors];
         });
 
-        armorCollisionsSetter(freshCollisionSet);
         return result;
       };
 }

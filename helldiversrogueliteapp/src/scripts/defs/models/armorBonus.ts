@@ -17,7 +17,7 @@ export const armorBonusFlags = {
 
     NoRagdolling : 1n << 6n,
     NoBleeding : 1n << 7n,
-    NoBrokenLegs : 1n << 8n,
+    // NoBrokenLegs : 1n << 8n, // double chance for something idk i forgot
     NoFlinch : 1n << 9n,
     // NoBrokenLimbs : 1n << 10n,
 
@@ -50,7 +50,7 @@ export const armorBonusFlags = {
     Grenades_More : 1n << 30n,
 
     Stim_Longer : 1n << 31n,
-    Stim_More : 1n << 32n,
+    // Stim_More : 1n << 32n, // basically double chance for stim_longer stim based armors, whereas having just stim_longer gives more variety
 } as const;
 export type armorBonusFlags = typeof armorBonusFlags[keyof typeof armorBonusFlags];
 
@@ -85,7 +85,7 @@ export const armorBonusesEnum = {
     FeetFirst : {
         description : "Wearer makes 50% less noise when moving.Increases point-of-interest identification range by 30%.Provides immunity to leg injuries.",
         icon_url : "./Feet_First_Armor_Passive_Icon",
-        armorBonusTags : armorBonusFlags.ReducedNoise | armorBonusFlags.NoBrokenLegs// | armorBonusFlags.StrongerPOIRange
+        armorBonusTags : armorBonusFlags.ReducedNoise// | armorBonusFlags.NoBrokenLegs | armorBonusFlags.StrongerPOIRange
     },
     AdrenoDefibrillator : {
         description : "Provides one-time, short-lived resuscitation upon death, given that the Helldiver's body is still intact.Increases stim effect duration by 2.0s.Provides 50% resistance to arc damage.",
@@ -165,7 +165,7 @@ export const armorBonusesEnum = {
     MedKit : {
         description : "Increases initial inventory and holding capacity of stims by +2.Increases stim effect duration by 2.0s.",
         icon_url : "./Med-Kit_Armor_Passive_Icon",
-        armorBonusTags : armorBonusFlags.Stim_More | armorBonusFlags.Stim_Longer
+        armorBonusTags : armorBonusFlags.Stim_Longer // armorBonusFlags.Stim_More
     },
     ServoAssisted : {
         description : "Increases throwing range by 30%.Provides +50% limb health.",
