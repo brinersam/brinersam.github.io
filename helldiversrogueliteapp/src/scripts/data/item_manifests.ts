@@ -6,24 +6,24 @@ import { armors_base } from "./dlc_manifests/base/armors_base";
 import { stratagems_base } from "./dlc_manifests/base/stratagems_base";
 import { weapons_base } from "./dlc_manifests/base/weapons_base";
 
-export const weapons : weaponData[] = 
+export const manifest_weapons : weaponData[] = 
 [
     ...weapons_base,
 ];
 
-export const armors : armorData[] = 
+export const manifest_armors : armorData[] = 
 [
     ...armors_base,
 ];
 
-export const stratagems : stratagemData[] = 
+export const manifest_stratagems : stratagemData[] = 
 [
     ...stratagems_base,
 ];
 
-export const manifest : itemData[] = 
+export const manifest_all : itemData[] = 
 [
-    ...weapons,
-    ...armors,
-    ...stratagems
+    ...manifest_weapons,
+    ...manifest_armors,
+    ...manifest_stratagems
 ];

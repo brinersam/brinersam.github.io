@@ -1,4 +1,4 @@
-import { armors } from "../data/item_manifests";
+import { manifest_armors } from "../data/item_manifests";
 import type { UUID } from "../defs/helpers/appUUID";
 import { armorBonusFlagsKeys, armorBonusFlags } from "../defs/models/armorBonus";
 import type { armorData } from "../defs/models/armorData";
@@ -31,7 +31,7 @@ export default class ArmorFunctions{
         const collisionSet = new Set<UUID>(); 
 
         bonuses.forEach((xBonus) => {
-          const filteredArmors = armors.filter(
+          const filteredArmors = manifest_armors.filter(
             (xarmor) => (xarmor.armorBonus.armorBonusTags & xBonus) !== 0n //bothAndIndividually
           );
           const chosenArmors = Helper.rollItemsWSharedCollisions(

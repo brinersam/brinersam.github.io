@@ -1,38 +1,28 @@
 import "./App.css";
-import { stratagems, weapons } from "./scripts/data/item_manifests";
+import { manifest_stratagems } from "./scripts/data/item_manifests";
 import type { weaponData } from "./scripts/defs/models/weaponData";
 import { useMemo, useState } from "react";
 import type { stratagemData } from "./scripts/defs/models/stratagemData";
 import type { UUID } from "./scripts/defs/helpers/appUUID";
 import ItemsContainer from "./components/ItemContainer";
-import Helper from "./scripts/functional/Helper";
 import GemButtonRow from "./components/GemButtonRow";
 import type { armorData } from "./scripts/defs/models/armorData";
 import ArmorFunctions from "./scripts/functional/ArmorFunctions";
+import WeaponRepository from "./scripts/functional/Repositories/WeaponRepository";
 
 function App() {
-  const manifestPrimaries = useMemo<weaponData[]>(
-    () => weapons.filter((x) => x.weaponSlot == "Primary"),
-    []
-  );
-
-  const manifestSecondaries = useMemo<weaponData[]>(
-    () => weapons.filter((x) => x.weaponSlot == "Secondary"),
-    []
-  );
-
   const manifestGemsRed = useMemo<stratagemData[]>(
-    () => stratagems.filter((x) => x.stratagemType == "Red"),
+    () => manifest_stratagems.filter((x) => x.stratagemType == "Red"),
     []
   );
 
   const manifestGemsBlue = useMemo<stratagemData[]>(
-    () => stratagems.filter((x) => x.stratagemType == "Blue"),
+    () => manifest_stratagems.filter((x) => x.stratagemType == "Blue"),
     []
   );
 
   const manifestGemsGreen = useMemo<stratagemData[]>(
-    () => stratagems.filter((x) => x.stratagemType == "Green"),
+    () => manifest_stratagems.filter((x) => x.stratagemType == "Green"),
     []
   );
 
@@ -66,6 +56,14 @@ function App() {
     set_items_armor_buffs(randomArmors);
   };
 
+  const RollPrimaryWeapons = () => {
+    set_items_Primary(WeaponRepository.rollPrimaryWeapons(2));
+  };
+
+  const RollSecondaryWeapons = () => {
+    set_items_Secondary(WeaponRepository.rollSecondaryWeapons(2));
+  };
+
   const resetAll = () => {
     set_items_Primary([]);
     set_items_Secondary([]);
@@ -92,9 +90,7 @@ function App() {
       <div style={{ display: "flex" }}>
         <div>
           <button
-            onClick={() =>
-              set_items_Primary(Helper.rollItems(2, manifestPrimaries))
-            }
+            onClick={RollPrimaryWeapons}
             className="rounded-full bg-sky-500 px-5 py-2 text-sm leading-5 font-semibold text-white hover:bg-sky-700"
           >
             Get random primaries
@@ -107,9 +103,7 @@ function App() {
         </div>
         <div>
           <button
-            onClick={() =>
-              set_items_Secondary(Helper.rollItems(2, manifestSecondaries))
-            }
+            onClick={RollSecondaryWeapons}
             className="rounded-full bg-sky-500 px-5 py-2 text-sm leading-5 font-semibold text-white hover:bg-sky-700"
           >
             Get random secondaries
