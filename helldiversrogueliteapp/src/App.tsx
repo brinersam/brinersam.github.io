@@ -4,7 +4,7 @@ import {
   weaponSlotEnum,
   type weaponData,
 } from "./scripts/defs/models/weaponData";
-import { useContext, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import type { stratagemData } from "./scripts/defs/models/stratagemData";
 import type { UUID } from "./scripts/defs/helpers/appUUID";
 import ItemsContainer from "./components/ItemContainer";
@@ -12,16 +12,11 @@ import GemButtonRow from "./components/GemButtonRow";
 import type { armorData } from "./scripts/defs/models/armorData";
 import ArmorFunctions from "./scripts/functional/ArmorFunctions";
 import WeaponRepository from "./scripts/functional/Repositories/WeaponRepository";
-import { AppContext } from "./react/context/AppContext";
 import { stratagemTypeEnum } from "./scripts/defs/models/stratagemData";
 import Helper from "./scripts/functional/Helper";
 import { itemTagFlags } from "./scripts/defs/enums/itemTagFlags";
 
 function App() {
-  const contextValue = useContext(AppContext);
-
-  console.log(contextValue);
-
   const manifestGemsRed = useMemo<stratagemData[]>(
     () => manifest_stratagems.filter((x) => x.stratagemType == "Red"),
     []
@@ -36,6 +31,8 @@ function App() {
     () => manifest_stratagems.filter((x) => x.stratagemType == "Green"),
     []
   );
+
+  const [forceFillSlots, setForceFillSlots] = useState<boolean>(true);
 
   const cssWeaponSize = { width: 200, height: 110 };
   const cssGemSize = { width: 100, height: 100 };
@@ -114,8 +111,7 @@ function App() {
     let dataGenerator: (source: stratagemData[]) => stratagemData[] =
       generateGemsFromSource;
 
-    if (type == "Blue") {
-      // && isCheckmarkedForceFillSlots
+    if (forceFillSlots && type == "Blue") {
       dataGenerator = GenerateBlueGemsFillSlots;
     }
 
@@ -231,6 +227,15 @@ function App() {
         >
           RESET
         </button>
+        <input
+          type="checkbox"
+          checked={forceFillSlots}
+          onChange={() => setForceFillSlots((prev) => !prev)}
+        />
+        <a style={{ color: "white" }}>
+          ensure backpack and support weapon slots are filled with second blue
+          gem generation
+        </a>
       </div>
       {/* weapons bar*/}
       <div style={{ display: "flex" }}>
