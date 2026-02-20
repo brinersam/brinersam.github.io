@@ -1,7 +1,13 @@
 import "./App.css";
 import { manifest_stratagems } from "./scripts/data/item_manifests";
 import type { weaponData } from "./scripts/defs/models/weaponData";
-import { useMemo, useState } from "react";
+import {
+  useContext,
+  useMemo,
+  useState,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
 import type { stratagemData } from "./scripts/defs/models/stratagemData";
 import type { UUID } from "./scripts/defs/helpers/appUUID";
 import ItemsContainer from "./components/ItemContainer";
@@ -9,8 +15,15 @@ import GemButtonRow from "./components/GemButtonRow";
 import type { armorData } from "./scripts/defs/models/armorData";
 import ArmorFunctions from "./scripts/functional/ArmorFunctions";
 import WeaponRepository from "./scripts/functional/Repositories/WeaponRepository";
+import { AppContext } from "./react/context/AppContext";
+import { stratagemTypeEnum } from "./scripts/defs/models/stratagemData";
+import Helper from "./scripts/functional/Helper";
 
 function App() {
+  const contextValue = useContext(AppContext);
+
+  console.log(contextValue);
+
   const manifestGemsRed = useMemo<stratagemData[]>(
     () => manifest_stratagems.filter((x) => x.stratagemType == "Red"),
     []
@@ -63,6 +76,53 @@ function App() {
   const RollSecondaryWeapons = () => {
     set_items_Secondary(WeaponRepository.rollSecondaryWeapons(2));
   };
+
+  function RollStratagem(slot: number, type: stratagemTypeEnum) {
+    let setter: Dispatch<SetStateAction<stratagemData[]>> | null = null;
+    let source: stratagemData[] | null = null;
+
+    switch (slot) {
+      case 1:
+        setter = set_items_gem_1;
+        break;
+      case 2:
+        setter = set_items_gem_2;
+        break;
+      case 3:
+        setter = set_items_gem_3;
+        break;
+      case 4:
+        setter = set_items_gem_4;
+        break;
+      default:
+        console.error(`incorrect (slot #${slot}) stratagem slot requested!`);
+        return;
+    }
+
+    switch (type) {
+      case "Red":
+        source = manifestGemsRed;
+        break;
+      case "Blue":
+        source = manifestGemsBlue;
+        break;
+      case "Green":
+        source = manifestGemsGreen;
+        break;
+      default:
+        console.error(`incorrect gem type(${type}) stratagem slot requested!`);
+        return;
+    }
+
+    setter(
+      Helper.rollItemsWSharedCollisions(
+        3,
+        source,
+        gemCollisions,
+        setGemCollisions
+      )
+    );
+  }
 
   const resetAll = () => {
     set_items_Primary([]);
@@ -118,43 +178,19 @@ function App() {
       {/* gem bar*/}
       <div style={{ display: "flex" }}>
         <div>
-          <GemButtonRow
-            gemSetter={set_items_gem_1}
-            collisionSource={gemCollisions}
-            collisionSetter={setGemCollisions}
-            itemAmount={3}
-            dataSources={[manifestGemsRed, manifestGemsBlue, manifestGemsGreen]}
-          />
+          <GemButtonRow slot={1} gemMgr={RollStratagem} />
           <ItemsContainer data={items_gem_1} size={cssGemSize} itemCount={3} />
         </div>
         <div>
-          <GemButtonRow
-            gemSetter={set_items_gem_2}
-            collisionSource={gemCollisions}
-            collisionSetter={setGemCollisions}
-            itemAmount={3}
-            dataSources={[manifestGemsRed, manifestGemsBlue, manifestGemsGreen]}
-          />
+          <GemButtonRow slot={2} gemMgr={RollStratagem} />
           <ItemsContainer data={items_gem_2} size={cssGemSize} itemCount={3} />
         </div>
         <div>
-          <GemButtonRow
-            gemSetter={set_items_gem_3}
-            collisionSource={gemCollisions}
-            collisionSetter={setGemCollisions}
-            itemAmount={3}
-            dataSources={[manifestGemsRed, manifestGemsBlue, manifestGemsGreen]}
-          />
+          <GemButtonRow slot={3} gemMgr={RollStratagem} />
           <ItemsContainer data={items_gem_3} size={cssGemSize} itemCount={3} />
         </div>
         <div>
-          <GemButtonRow
-            gemSetter={set_items_gem_4}
-            collisionSource={gemCollisions}
-            collisionSetter={setGemCollisions}
-            itemAmount={3}
-            dataSources={[manifestGemsRed, manifestGemsBlue, manifestGemsGreen]}
-          />
+          <GemButtonRow slot={4} gemMgr={RollStratagem} />
           <ItemsContainer data={items_gem_4} size={cssGemSize} itemCount={3} />
         </div>
       </div>
