@@ -610,7 +610,7 @@ export const stratagems_base: Array<stratagemData> = [
     id: "61d21d51-b727-4f80-af71-758e68c2305a",
     name: "SH-51 Directional Shield",
     icon_url: "./stratagems/SH-51_Directional_Shield_Stratagem_Icon.svg",
-    tags: itemTagFlags.None,
+    tags: itemTagFlags.Backpack_slot,
     quality: "Medium",
     inventoryOrder: 0,
     stratagemType: "Blue",
@@ -817,7 +817,7 @@ export const stratagems_base: Array<stratagemData> = [
     name: "GL-28 Belt-Fed Grenade Launcher",
     icon_url:
       "./stratagems/GL-28_Belt-Fed_Grenade_Launcher_Stratagem_Icon.webp",
-    tags: itemTagFlags.None,
+    tags: itemTagFlags.Backpack_slot,
     quality: "Medium",
     inventoryOrder: 0,
     stratagemType: "Blue",

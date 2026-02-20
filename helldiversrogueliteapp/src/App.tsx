@@ -1,13 +1,10 @@
 import "./App.css";
 import { manifest_stratagems } from "./scripts/data/item_manifests";
-import type { weaponData } from "./scripts/defs/models/weaponData";
 import {
-  useContext,
-  useMemo,
-  useState,
-  type Dispatch,
-  type SetStateAction,
-} from "react";
+  weaponSlotEnum,
+  type weaponData,
+} from "./scripts/defs/models/weaponData";
+import { useContext, useMemo, useState } from "react";
 import type { stratagemData } from "./scripts/defs/models/stratagemData";
 import type { UUID } from "./scripts/defs/helpers/appUUID";
 import ItemsContainer from "./components/ItemContainer";
@@ -18,6 +15,7 @@ import WeaponRepository from "./scripts/functional/Repositories/WeaponRepository
 import { AppContext } from "./react/context/AppContext";
 import { stratagemTypeEnum } from "./scripts/defs/models/stratagemData";
 import Helper from "./scripts/functional/Helper";
+import { itemTagFlags } from "./scripts/defs/enums/itemTagFlags";
 
 function App() {
   const contextValue = useContext(AppContext);
@@ -78,27 +76,26 @@ function App() {
   };
 
   function RollStratagem(slot: number, type: stratagemTypeEnum) {
-    let setter: Dispatch<SetStateAction<stratagemData[]>> | null = null;
-    let source: stratagemData[] | null = null;
-
+    let setState: ((data: stratagemData[]) => void) | undefined = undefined;
     switch (slot) {
       case 1:
-        setter = set_items_gem_1;
+        setState = set_items_gem_1;
         break;
       case 2:
-        setter = set_items_gem_2;
+        setState = set_items_gem_2;
         break;
       case 3:
-        setter = set_items_gem_3;
+        setState = set_items_gem_3;
         break;
       case 4:
-        setter = set_items_gem_4;
+        setState = set_items_gem_4;
         break;
       default:
         console.error(`incorrect (slot #${slot}) stratagem slot requested!`);
         return;
     }
 
+    let source: stratagemData[] | undefined = undefined;
     switch (type) {
       case "Red":
         source = manifestGemsRed;
@@ -114,14 +111,103 @@ function App() {
         return;
     }
 
-    setter(
-      Helper.rollItemsWSharedCollisions(
-        3,
-        source,
-        gemCollisions,
-        setGemCollisions
-      )
+    let dataGenerator: (source: stratagemData[]) => stratagemData[] =
+      generateGemsFromSource;
+
+    if (type == "Blue") {
+      // && isCheckmarkedForceFillSlots
+      dataGenerator = GenerateBlueGemsFillSlots;
+    }
+
+    setState(dataGenerator(source));
+  }
+
+  function generateGemsFromSource(
+    source: stratagemData[],
+    n?: number
+  ): stratagemData[] {
+    return Helper.rollItemsWSharedCollisions(
+      n ?? 3,
+      source,
+      gemCollisions,
+      setGemCollisions
     );
+  }
+
+  const isBackpack = (x: stratagemData) =>
+    (x.tags & itemTagFlags.Backpack_slot) != 0;
+
+  const isSupportSlot = (x: stratagemData) =>
+    (x as never)[`weaponSlot`] == weaponSlotEnum[3];
+
+  function GenerateBlueGemsFillSlots(source: stratagemData[]): stratagemData[] {
+    const currentStratagems = [
+      ...items_gem_1,
+      ...items_gem_2,
+      ...items_gem_3,
+      ...items_gem_4,
+    ];
+    const currentBlueGems = currentStratagems.filter(
+      (x) => x.stratagemType == "Blue"
+    );
+    if (currentBlueGems.length != 3) return generateGemsFromSource(source);
+
+    const curWeaponWBackpackSlots = currentBlueGems.filter(
+      (x) => isBackpack(x) && isSupportSlot(x)
+    );
+
+    if (curWeaponWBackpackSlots.length > 0)
+      return generateGemsFromSource(source);
+
+    const curOnlyBackpackSlots = currentBlueGems.filter(
+      (x) => isBackpack(x) && !isSupportSlot(x)
+    );
+
+    const curOnlyWeaponSlots = currentBlueGems.filter(
+      (x) => isSupportSlot(x) && !isBackpack(x)
+    );
+
+    let result: stratagemData[] = [];
+    let remainingSlots = 3;
+
+    const collisions = new Set<UUID>(gemCollisions);
+
+    if (curOnlyBackpackSlots.length >= 1) {
+      const weaponOnlyGem = Helper.rollItemsWSharedCollisions(
+        1,
+        source,
+        collisions,
+        (x) => x.forEach((x) => collisions.add(x)),
+        (x: stratagemData) => isSupportSlot(x) && !isBackpack(x)
+      )[0];
+      result.push(weaponOnlyGem);
+      remainingSlots--;
+    }
+
+    if (curOnlyWeaponSlots.length >= 1) {
+      const backpackOnlyGem = Helper.rollItemsWSharedCollisions(
+        1,
+        source,
+        collisions,
+        (x) => x.forEach((x) => collisions.add(x)),
+        (x: stratagemData) => isBackpack(x) && !isSupportSlot(x)
+      )[0];
+      result.push(backpackOnlyGem);
+      remainingSlots--;
+    }
+
+    const remainingGems = Helper.rollItemsWSharedCollisions(
+      remainingSlots,
+      source,
+      collisions,
+      (x) => x.forEach((x) => collisions.add(x))
+    );
+
+    setGemCollisions(collisions);
+
+    result = [...result, ...remainingGems];
+
+    return result;
   }
 
   const resetAll = () => {

@@ -63,7 +63,8 @@ export default class Helper{
         n: number,
         dataSource: T[],
         collisionSource: Set<UUID>,
-        collisionSourceSetter: (set : Set<string>) => void
+        collisionSourceSetter: (set : Set<string>) => void,
+        predicate?: (value:T) => boolean
       ): T[] => {
 
         const newCollisionSet = new Set<UUID>(collisionSource);
@@ -71,6 +72,10 @@ export default class Helper{
           if (newCollisionSet.has(x.id))
             return false;
           newCollisionSet.add(x.id);
+
+          if (predicate != undefined)
+            return predicate(x);
+          
           return true;
         }
         const rolledItems = this.rollItems(n, dataSource, collisionPredicate)
