@@ -177,6 +177,11 @@ function App() {
         (x: stratagemData) => isSupportSlot(x) && !isBackpack(x)
       )[0];
       result.push(weaponOnlyGem);
+      console.log(
+        `occpy support weapon slot (because of ${curOnlyBackpackSlots.flatMap(
+          (x) => x.name
+        )}})`
+      );
       remainingSlots--;
     }
 
@@ -189,6 +194,11 @@ function App() {
         (x: stratagemData) => isBackpack(x) && !isSupportSlot(x)
       )[0];
       result.push(backpackOnlyGem);
+      console.log(
+        `occpy backpack only slot (because of ${curOnlyWeaponSlots.flatMap(
+          (x) => x.name
+        )}})`
+      );
       remainingSlots--;
     }
 
