@@ -12,7 +12,7 @@ export default class Helper{
         const itemCount = dataSource.length;
 
         if (dataSource.length < n)
-            return Array.from({ length: dataSource.length }, (_,i) => i+1);
+            return Array.from({ length: dataSource.length }, (_,i) => i);
     
         while (resultsIdxSet.size < n) {
           let randomIdx = Math.floor(Math.random() * itemCount); // 0 - itemcount-1
