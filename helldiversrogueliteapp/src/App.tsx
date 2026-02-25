@@ -52,8 +52,8 @@ function App() {
   );
 
   const user_manifest_stratagems = useMemo<stratagemData[]>(
-    () => manifest_stratagems.filter((x) => userPrefs.has(x.id)),
-    [userPrefs]
+    () => manifest_stratagems.filter((_) => true), //userPrefs.has(x.id)),
+    [] //[userPrefs]
   );
 
   const manifestGemsRed = useMemo<stratagemData[]>(
