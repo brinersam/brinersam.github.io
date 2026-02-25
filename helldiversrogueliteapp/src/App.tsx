@@ -1,5 +1,9 @@
 import "./App.css";
-import { manifest_stratagems } from "./scripts/data/item_manifests";
+import {
+  manifest_armors,
+  manifest_stratagems,
+  manifest_weapons,
+} from "./scripts/data/item_manifests";
 import {
   weaponSlotEnum,
   type weaponData,
@@ -11,32 +15,71 @@ import ItemsContainer from "./components/ItemContainer";
 import GemButtonRow from "./components/GemButtonRow";
 import type { armorData } from "./scripts/defs/models/armorData";
 import ArmorFunctions from "./scripts/functional/ArmorFunctions";
-import WeaponRepository from "./scripts/functional/Repositories/WeaponRepository";
 import { stratagemTypeEnum } from "./scripts/defs/models/stratagemData";
 import Helper from "./scripts/functional/Helper";
 import { itemTagFlags } from "./scripts/defs/enums/itemTagFlags";
+import DebugSettingsItems from "./components/DebugSettingsItems";
 
 function App() {
+  //#region static data sources
+  const [userPrefs, setUserPrefs] = useState<Set<UUID>>(new Set<UUID>());
+
+  function AddRemoveItemPreference(id: UUID) {
+    const newSet = new Set<UUID>(userPrefs);
+    if (userPrefs.has(id)) {
+      newSet.delete(id);
+      console.log(`deleted ${id}`);
+    } else {
+      newSet.add(id);
+      console.log(`added ${id}`);
+    }
+    setUserPrefs(newSet);
+  }
+
+  const user_manifest_armors = useMemo<armorData[]>(
+    () => manifest_armors.filter((x) => userPrefs.has(x.id)),
+    [userPrefs]
+  );
+
+  const armorRepository = useMemo<ArmorFunctions>(
+    () => new ArmorFunctions(user_manifest_armors),
+    [user_manifest_armors]
+  );
+
+  const user_manifest_weapons = useMemo<weaponData[]>(
+    () => manifest_weapons.filter((x) => userPrefs.has(x.id)),
+    [userPrefs]
+  );
+
+  const user_manifest_stratagems = useMemo<stratagemData[]>(
+    () => manifest_stratagems.filter((x) => userPrefs.has(x.id)),
+    [userPrefs]
+  );
+
   const manifestGemsRed = useMemo<stratagemData[]>(
-    () => manifest_stratagems.filter((x) => x.stratagemType == "Red"),
-    []
+    () => user_manifest_stratagems.filter((x) => x.stratagemType == "Red"),
+    [user_manifest_stratagems]
   );
 
   const manifestGemsBlue = useMemo<stratagemData[]>(
-    () => manifest_stratagems.filter((x) => x.stratagemType == "Blue"),
-    []
+    () => user_manifest_stratagems.filter((x) => x.stratagemType == "Blue"),
+    [user_manifest_stratagems]
   );
 
   const manifestGemsGreen = useMemo<stratagemData[]>(
-    () => manifest_stratagems.filter((x) => x.stratagemType == "Green"),
-    []
+    () => user_manifest_stratagems.filter((x) => x.stratagemType == "Green"),
+    [user_manifest_stratagems]
   );
+  //#endregion static data sources
 
-  const [forceFillSlots, setForceFillSlots] = useState<boolean>(true);
-
+  //#region css
   const cssWeaponSize = { width: 200, height: 110 };
   const cssGemSize = { width: 100, height: 100 };
   const cssArmorSize = { width: 200, height: 200 };
+  //#endregion css
+
+  //#region local display data
+  const [forceFillSlots, setForceFillSlots] = useState<boolean>(true);
 
   const [items_Primary, set_items_Primary] = useState<weaponData[]>([]);
   const [items_Secondary, set_items_Secondary] = useState<weaponData[]>([]);
@@ -48,28 +91,43 @@ function App() {
   const [gemCollisions, setGemCollisions] = useState<Set<UUID>>(
     new Set<UUID>()
   );
+  //#endregion local display data
 
-  const [items_armor_buffs, set_items_armor_buffs] = useState<armorData[]>([]);
+  const [items_armor_buffs, set_items_armor_buffs] = useState<armorData[][]>([
+    [],
+    [],
+    [],
+  ]);
   const [items_armor_buffs_names, set_items_armor_buffs_names] = useState<
     string[]
   >([]);
   const setArmors = (nBuffs: number, nArmors: number) => {
-    const randomBuffsData = ArmorFunctions.getRandomBuffs(nBuffs);
-    const randomArmors = ArmorFunctions.queryArmorsByBonuses(
+    const randomBuffs = armorRepository.getRandomBuffs(nBuffs);
+    const randomArmors = armorRepository.queryArmorsByBonuses(
       nArmors,
-      randomBuffsData.map((x) => x.value)
+      randomBuffs.map((x) => x.value)
     );
 
-    set_items_armor_buffs_names(randomBuffsData.map((x) => x.name));
+    set_items_armor_buffs_names(randomBuffs.map((x) => x.name));
     set_items_armor_buffs(randomArmors);
   };
 
   const RollPrimaryWeapons = () => {
-    set_items_Primary(WeaponRepository.rollPrimaryWeapons(2));
+    set_items_Primary(
+      Helper.rollItems(
+        2,
+        user_manifest_weapons.filter((x) => x.weaponSlot == "Primary")
+      )
+    );
   };
 
   const RollSecondaryWeapons = () => {
-    set_items_Secondary(WeaponRepository.rollSecondaryWeapons(2));
+    set_items_Secondary(
+      Helper.rollItems(
+        2,
+        user_manifest_weapons.filter((x) => x.weaponSlot == "Secondary")
+      )
+    );
   };
 
   function RollStratagem(slot: number, type: stratagemTypeEnum) {
@@ -148,12 +206,15 @@ function App() {
     );
     if (currentBlueGems.length != 3) return generateGemsFromSource(source);
 
-    const curWeaponWBackpackSlots = currentBlueGems.filter(
-      (x) => isBackpack(x) && isSupportSlot(x)
-    );
+    // no need for this, if ur rerolling while u got backpack+gun
+    // u'd rather use other support weapon or backpack in that column
 
-    if (curWeaponWBackpackSlots.length > 0)
-      return generateGemsFromSource(source);
+    // const curWeaponWBackpackSlots = currentBlueGems.filter(
+    //   (x) => isBackpack(x) && isSupportSlot(x)
+    // );
+
+    // if (curWeaponWBackpackSlots.length > 0)
+    //   return generateGemsFromSource(source);
 
     const curOnlyBackpackSlots = currentBlueGems.filter(
       (x) => isBackpack(x) && !isSupportSlot(x)
@@ -224,7 +285,7 @@ function App() {
     set_items_gem_3([]);
     set_items_gem_4([]);
     setGemCollisions(new Set<UUID>());
-    set_items_armor_buffs([]);
+    set_items_armor_buffs([[], [], []]);
     set_items_armor_buffs_names([]);
   };
 
@@ -316,12 +377,96 @@ function App() {
             flexWrap: "wrap",
           }}
         >
-          <ItemsContainer
-            data={items_armor_buffs}
-            size={cssArmorSize}
-            itemCount={6}
-          />
+          {items_armor_buffs.map((x, idx) => {
+            return (
+              <ItemsContainer
+                key={`armorColumn#${idx}`}
+                data={x}
+                size={cssArmorSize}
+                itemCount={2}
+              />
+            );
+          })}
         </div>
+      </div>
+      <div>
+        <h1 style={{ color: "white" }}>Options</h1>
+        <button
+          onClick={() => {
+            const json = JSON.stringify(Array.from(userPrefs));
+            localStorage.setItem("data", json);
+          }}
+          className="rounded-full bg-red-400 px-40 py-2 text-sm leading-5 font-semibold text-white hover:bg-red-700"
+        >
+          save settings
+        </button>
+        <button
+          onClick={() => {
+            const dataJson = localStorage.getItem("data");
+            //
+            const data = JSON.parse(dataJson!);
+            if (data == null) return;
+
+            setUserPrefs(new Set<UUID>(data));
+          }}
+          className="rounded-full bg-red-400 px-40 py-2 text-sm leading-5 font-semibold text-white hover:bg-red-700"
+        >
+          load settings
+        </button>
+        <h1 style={{ color: "white" }}>Primaries</h1>
+      </div>
+      <div style={{ display: "flex", flexWrap: "wrap", width: "70%" }}>
+        <DebugSettingsItems
+          items={manifest_weapons.filter((x) => x.weaponSlot == "Primary")}
+          size={cssWeaponSize}
+          userPrefs={userPrefs}
+          onClick={AddRemoveItemPreference}
+        />
+      </div>
+      <div>
+        <h1 style={{ color: "white" }}>Secondaries</h1>
+      </div>
+      <div style={{ display: "flex", flexWrap: "wrap", width: "70%" }}>
+        <DebugSettingsItems
+          items={manifest_weapons.filter((x) => x.weaponSlot == "Secondary")}
+          size={cssWeaponSize}
+          userPrefs={userPrefs}
+          onClick={AddRemoveItemPreference}
+        />
+      </div>
+      <div>
+        <h1 style={{ color: "white" }}>Armors</h1>
+        <h1 style={{ color: "white" }}>Light</h1>
+      </div>
+      <div style={{ display: "flex", flexWrap: "wrap", width: "70%" }}>
+        <DebugSettingsItems
+          items={manifest_armors.filter((x) => x.armorWeight == "Light")}
+          size={cssArmorSize}
+          userPrefs={userPrefs}
+          onClick={AddRemoveItemPreference}
+        />
+      </div>
+      <div>
+        <h1 style={{ color: "white" }}>Medium</h1>
+      </div>
+      <div style={{ display: "flex", flexWrap: "wrap", width: "70%" }}>
+        <DebugSettingsItems
+          items={manifest_armors.filter((x) => x.armorWeight == "Medium")}
+          size={cssArmorSize}
+          userPrefs={userPrefs}
+          onClick={AddRemoveItemPreference}
+        />
+      </div>
+      <div>
+        <h1 style={{ color: "white" }}>Heavy</h1>
+      </div>
+      <div style={{ display: "flex", flexWrap: "wrap", width: "70%" }}>
+        <DebugSettingsItems
+          items={manifest_armors.filter((x) => x.armorWeight == "Heavy")}
+          size={cssArmorSize}
+          userPrefs={userPrefs}
+          onClick={AddRemoveItemPreference}
+        />
       </div>
     </>
   );
