@@ -63,7 +63,7 @@ export default class Helper{
         n: number,
         dataSource: T[],
         collisionSource: Set<UUID>,
-        collisionSourceSetter: (set : Set<string>) => void,
+        collisionSourceSetter: (set : Set<UUID>) => void,
         predicate?: (value:T) => boolean
       ): T[] => {
 

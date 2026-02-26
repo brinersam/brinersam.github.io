@@ -8,7 +8,7 @@ import {
   weaponSlotEnum,
   type weaponData,
 } from "./scripts/defs/models/weaponData";
-import { useMemo, useState } from "react";
+import { useMemo, useState, type ReactNode } from "react";
 import type { stratagemData } from "./scripts/defs/models/stratagemData";
 import type { UUID } from "./scripts/defs/helpers/appUUID";
 import ItemsContainer from "./components/ItemContainer";
@@ -19,6 +19,11 @@ import { stratagemTypeEnum } from "./scripts/defs/models/stratagemData";
 import Helper from "./scripts/functional/Helper";
 import { itemTagFlags } from "./scripts/defs/enums/itemTagFlags";
 import DebugSettingsItems from "./components/DebugSettingsItems";
+import {
+  armorBonusFlags,
+  armorBonusFlagsKeys,
+} from "./scripts/defs/models/armorBonus";
+import ItemIcon from "./components/ItemIcon";
 
 function App() {
   //#region static data sources
@@ -41,10 +46,10 @@ function App() {
     [userPrefs]
   );
 
-  const armorRepository = useMemo<ArmorFunctions>(
-    () => new ArmorFunctions(user_manifest_armors),
-    [user_manifest_armors]
-  );
+  // const armorRepository = useMemo<ArmorFunctions>(
+  //   () => new ArmorFunctions(user_manifest_armors),
+  //   [user_manifest_armors]
+  // );
 
   const user_manifest_weapons = useMemo<weaponData[]>(
     () => manifest_weapons.filter((x) => userPrefs.has(x.id)),
@@ -101,15 +106,60 @@ function App() {
   const [items_armor_buffs_names, set_items_armor_buffs_names] = useState<
     string[]
   >([]);
-  const setArmors = (nBuffs: number, nArmors: number) => {
-    const randomBuffs = armorRepository.getRandomBuffs(nBuffs);
-    const randomArmors = armorRepository.queryArmorsByBonuses(
-      nArmors,
-      randomBuffs.map((x) => x.value)
-    );
+  const setArmors = () => {
+    const resultArmors: armorData[][] = [];
+    const resultBuffs: string[] = [];
+    let armorCollisions = new Set<UUID>();
+    const buffCollisions = new Set<keyof typeof armorBonusFlags>();
 
-    set_items_armor_buffs_names(randomBuffs.map((x) => x.name));
-    set_items_armor_buffs(randomArmors);
+    for (let i = 0; i < 3; i++) {
+      // get random armor
+      const randomArmor = Helper.rollItemsWSharedCollisions(
+        1,
+        user_manifest_armors,
+        armorCollisions,
+        (newCollision) => (armorCollisions = newCollision)
+      );
+      // get random buff from this armor
+      const buffs = ArmorFunctions.getBuffsFromArmor(randomArmor);
+      const randomBuffIdx = Helper.generateListOfUniqueIdx(1, buffs, (x) => {
+        return (
+          buffCollisions.has(x as unknown as keyof typeof armorBonusFlags) ==
+          false
+        );
+      })[0];
+      const randomBuffKey = buffs[
+        randomBuffIdx
+      ] as unknown as keyof typeof armorBonusFlags;
+
+      // update collisions
+      buffCollisions.add(randomBuffKey);
+      resultBuffs.push(randomBuffKey);
+
+      // roll second + armors that shares tag from first, avoid collisions
+      const secondArmor = Helper.rollItems(
+        1,
+        user_manifest_armors.filter(
+          (x) =>
+            (x.armorBonus.armorBonusTags & armorBonusFlags[randomBuffKey]) !==
+            0n
+        ),
+        (xArmor) => {
+          if (armorCollisions.has(xArmor.id)) return false;
+          armorCollisions.add(xArmor.id);
+          return true;
+        }
+      );
+
+      // map into a result
+      resultArmors.push([
+        ...secondArmor.flatMap((x) => x),
+        ...randomArmor.flatMap((x) => x),
+      ]);
+    }
+
+    set_items_armor_buffs_names(resultBuffs);
+    set_items_armor_buffs(resultArmors);
   };
 
   const RollPrimaryWeapons = () => {
@@ -206,16 +256,6 @@ function App() {
     );
     if (currentBlueGems.length != 3) return generateGemsFromSource(source);
 
-    // no need for this, if ur rerolling while u got backpack+gun
-    // u'd rather use other support weapon or backpack in that column
-
-    // const curWeaponWBackpackSlots = currentBlueGems.filter(
-    //   (x) => isBackpack(x) && isSupportSlot(x)
-    // );
-
-    // if (curWeaponWBackpackSlots.length > 0)
-    //   return generateGemsFromSource(source);
-
     const curOnlyBackpackSlots = currentBlueGems.filter(
       (x) => isBackpack(x) && !isSupportSlot(x)
     );
@@ -289,6 +329,41 @@ function App() {
     set_items_armor_buffs_names([]);
   };
 
+  function PrintEveryArmorByStatus() {
+    const visualBlock: ReactNode[] = [];
+
+    armorBonusFlagsKeys.forEach((xFlagKey) => {
+      visualBlock.push(
+        <>
+          <h1 style={{ color: "white" }}>{xFlagKey}</h1>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              width: "50%",
+              height: "50%",
+            }}
+          >
+            {manifest_armors
+              .filter(
+                (xArmor) =>
+                  (xArmor.armorBonus.armorBonusTags &
+                    armorBonusFlags[xFlagKey]) !==
+                  0n
+              )
+              .map((x) => (
+                <div style={cssArmorSize}>
+                  <ItemIcon data={x} />
+                </div>
+              ))}
+          </div>
+        </>
+      );
+    });
+
+    return visualBlock;
+  }
+
   return (
     <>
       <div>
@@ -360,7 +435,7 @@ function App() {
       <div style={{ display: "flex" }}>
         <div>
           <button
-            onClick={() => setArmors(3, 2)}
+            onClick={() => setArmors()}
             className="rounded-full bg-sky-500 px-5 py-2 text-sm leading-5 font-semibold text-white hover:bg-sky-700"
           >
             Get random armor [{items_armor_buffs_names.map((x) => `: ${x} :`)}]
@@ -468,6 +543,8 @@ function App() {
           onClick={AddRemoveItemPreference}
         />
       </div>
+
+      {PrintEveryArmorByStatus()}
     </>
   );
 }

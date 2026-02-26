@@ -10,10 +10,10 @@ export default class ArmorFunctions{
     constructor(armorSource : armorData[])
     {
       this._armorSource = armorSource;
-      this._availableBuffs = this.calculatePossibleBuffs(armorSource);
+      this._availableBuffs = ArmorFunctions.getBuffsFromArmor(armorSource);
     }
 
-    private calculatePossibleBuffs(armors : armorData[]) : armorBonusFlagsKeys[]
+    static getBuffsFromArmor(armors : armorData[]) : armorBonusFlagsKeys[]
     {
       const combinedBonuses = armors
         .map(x => x.armorBonus.armorBonusTags)
