@@ -289,7 +289,7 @@ function App() {
 
     armorBonusFlagsKeys.forEach((xFlagKey) => {
       visualBlock.push(
-        <>
+        <div key={`${xFlagKey} armors`}>
           <h1 style={{ color: "white" }}>{xFlagKey}</h1>
           <div
             style={{
@@ -307,12 +307,15 @@ function App() {
                   0n
               )
               .map((x) => (
-                <div style={cssArmorSize}>
+                <div
+                  key={`${xFlagKey} armor with id ${x.id}`}
+                  style={cssArmorSize}
+                >
                   <ItemIcon data={x} />
                 </div>
               ))}
           </div>
-        </>
+        </div>
       );
     });
 

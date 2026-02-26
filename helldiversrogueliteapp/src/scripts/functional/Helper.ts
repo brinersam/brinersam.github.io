@@ -11,24 +11,32 @@ export default class Helper{
         const resultsIdxSet = new Set<number>();
         const itemCount = dataSource.length;
 
-        if (dataSource.length < n)
-            return Array.from({ length: dataSource.length }, (_,i) => i);
+        if (dataSource.length <= n)
+        {
+          console.log("set too small. returning set, skipping logic");
+          return Array.from({ length: dataSource.length }, (_,i) => i);
+        }
     
         while (resultsIdxSet.size < n) {
           let randomIdx = Math.floor(Math.random() * itemCount); // 0 - itemcount-1
     
           const stepDirection = Math.random() > 0.5 ? 1 : -1;
           const startingIdx = randomIdx;
+          let timesAtStart = -1;
 
           while (true) {
             randomIdx = randomIdx + stepDirection;
             randomIdx = randomIdx < 0 ? itemCount - 1 : randomIdx % itemCount; // wrap around
             const item = dataSource[randomIdx];
 
-            if (randomIdx == startingIdx) // infinite loop
+            if (randomIdx == startingIdx) 
             {
-              console.log("infinite loop avoided!");
-              break;
+              timesAtStart += 1;
+              if (timesAtStart > 0)
+              {
+                console.log("infinite loop avoided!");
+                break;
+              }
             }
 
             if (resultsIdxSet.has(randomIdx)) // duplicate idx
@@ -71,11 +79,12 @@ export default class Helper{
         const collisionPredicate = (x : T) =>{
           if (newCollisionSet.has(x.id))
             return false;
-          newCollisionSet.add(x.id);
 
           if (predicate != undefined)
-            return predicate(x);
+            if (!predicate(x))
+              return false;
           
+          newCollisionSet.add(x.id);
           return true;
         }
         const rolledItems = this.rollItems(n, dataSource, collisionPredicate)
