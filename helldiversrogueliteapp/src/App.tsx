@@ -46,10 +46,10 @@ function App() {
     [userPrefs]
   );
 
-  // const armorRepository = useMemo<ArmorFunctions>(
-  //   () => new ArmorFunctions(user_manifest_armors),
-  //   [user_manifest_armors]
-  // );
+  const armorRepository = useMemo<ArmorFunctions>(
+    () => new ArmorFunctions(user_manifest_armors),
+    [user_manifest_armors]
+  );
 
   const user_manifest_weapons = useMemo<weaponData[]>(
     () => manifest_weapons.filter((x) => userPrefs.has(x.id)),
@@ -106,60 +106,15 @@ function App() {
   const [items_armor_buffs_names, set_items_armor_buffs_names] = useState<
     string[]
   >([]);
-  const setArmors = () => {
-    const resultArmors: armorData[][] = [];
-    const resultBuffs: string[] = [];
-    let armorCollisions = new Set<UUID>();
-    const buffCollisions = new Set<keyof typeof armorBonusFlags>();
+  const setArmors = (nBuffs: number, nArmors: number) => {
+    const randomBuffs = armorRepository.getRandomBuffs(nBuffs);
+    const randomArmors = armorRepository.queryArmorsByBonuses(
+      nArmors,
+      randomBuffs.map((x) => x.value)
+    );
 
-    for (let i = 0; i < 3; i++) {
-      // get random armor
-      const randomArmor = Helper.rollItemsWSharedCollisions(
-        1,
-        user_manifest_armors,
-        armorCollisions,
-        (newCollision) => (armorCollisions = newCollision)
-      );
-      // get random buff from this armor
-      const buffs = ArmorFunctions.getBuffsFromArmor(randomArmor);
-      const randomBuffIdx = Helper.generateListOfUniqueIdx(1, buffs, (x) => {
-        return (
-          buffCollisions.has(x as unknown as keyof typeof armorBonusFlags) ==
-          false
-        );
-      })[0];
-      const randomBuffKey = buffs[
-        randomBuffIdx
-      ] as unknown as keyof typeof armorBonusFlags;
-
-      // update collisions
-      buffCollisions.add(randomBuffKey);
-      resultBuffs.push(randomBuffKey);
-
-      // roll second + armors that shares tag from first, avoid collisions
-      const secondArmor = Helper.rollItems(
-        1,
-        user_manifest_armors.filter(
-          (x) =>
-            (x.armorBonus.armorBonusTags & armorBonusFlags[randomBuffKey]) !==
-            0n
-        ),
-        (xArmor) => {
-          if (armorCollisions.has(xArmor.id)) return false;
-          armorCollisions.add(xArmor.id);
-          return true;
-        }
-      );
-
-      // map into a result
-      resultArmors.push([
-        ...secondArmor.flatMap((x) => x),
-        ...randomArmor.flatMap((x) => x),
-      ]);
-    }
-
-    set_items_armor_buffs_names(resultBuffs);
-    set_items_armor_buffs(resultArmors);
+    set_items_armor_buffs_names(randomBuffs.map((x) => x.name));
+    set_items_armor_buffs(randomArmors);
   };
 
   const RollPrimaryWeapons = () => {
@@ -435,7 +390,7 @@ function App() {
       <div style={{ display: "flex" }}>
         <div>
           <button
-            onClick={() => setArmors()}
+            onClick={() => setArmors(3, 2)}
             className="rounded-full bg-sky-500 px-5 py-2 text-sm leading-5 font-semibold text-white hover:bg-sky-700"
           >
             Get random armor [{items_armor_buffs_names.map((x) => `: ${x} :`)}]
